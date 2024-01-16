@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 public class LoginController {
@@ -19,11 +20,13 @@ public class LoginController {
     private TextField nameTxt;
     @FXML
     private PasswordField passPf;
+    private Dialog<Object> primaryStage;
 
     public void buttonCancelOnAction(ActionEvent actionEvent){
         Stage stage = (Stage) buttonCancel.getScene().getWindow();
         stage.close();
     }
+
 
     public void buttonLoginOnAction(ActionEvent actionEvent) throws Exception {
         if(nameTxt.getText().equals("celso") && passPf.getText().equals("admin")){
@@ -33,6 +36,7 @@ public class LoginController {
             alert.setContentText("Clique no botão para a proxima janela...");
             alert.show();
             Parent scene = FXMLLoader.load(getClass().getResource("Principal.fxml"));
+            //primaryStage.initStyle(StageStyle.UNDECORATED);
             Stage back = new Stage();
             //Definições da Stage
             back.setTitle("");

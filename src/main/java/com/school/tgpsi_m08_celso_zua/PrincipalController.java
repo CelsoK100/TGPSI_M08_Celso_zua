@@ -87,10 +87,10 @@ public class PrincipalController  {
     private ComboBox roomType;
 
     @FXML
-    private TableColumn<?, ?> roomTypeCollum;
+    private TableColumn roomTypeCollum;
 
     @FXML
-    private ComboBox<?> roomTypeStatus;
+    private ComboBox roomTypeStatus;
 
     @FXML
     private ImageView sairBtn;
@@ -162,5 +162,32 @@ public class PrincipalController  {
     }
 
     public void btnCheckInExit(MouseEvent mouseEvent) {
+    }
+
+    public void btnClearEntered(MouseEvent mouseEvent) {
+    }
+
+    public void btnAddFunEntered(MouseEvent mouseEvent) {
+    }
+
+    public void btnAddFunExited(MouseEvent mouseEvent) {
+    }
+
+    public void btnEditFunEntered(MouseEvent mouseEvent) {
+    }
+
+    public void btnEdtFunExited(MouseEvent mouseEvent) {
+    }
+
+    public void btnClearFunEntered(MouseEvent mouseEvent) {
+    }
+
+    public void btnClearFunExited(MouseEvent mouseEvent) {
+    }
+
+    public void btnDelFunExited(MouseEvent mouseEvent) {
+    }
+
+    public void btnDelFunEntered(MouseEvent mouseEvent) {
     }
 }
