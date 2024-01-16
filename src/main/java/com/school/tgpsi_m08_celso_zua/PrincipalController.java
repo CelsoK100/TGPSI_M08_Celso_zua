@@ -1,18 +1,54 @@
 package com.school.tgpsi_m08_celso_zua;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class PrincipalController  {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class PrincipalController implements Initializable {
+    @FXML
+    private Button AcercaDeBtn;
+
+    @FXML
+    private Button ClearFunBtn;
+
+    @FXML
+    private Button ClientBtn;
+
     @FXML
     private AnchorPane ClientForm;
 
     @FXML
-    private TableView ClientTableView;
+    private TableView<?> ClientTableView;
+
+    @FXML
+    private TableColumn<?, ?> FuncionarioAgeColumm;
+
+    @FXML
+    private TableColumn<?, ?> FuncionarioCargoColumm;
+
+    @FXML
+    private TableColumn<?, ?> FuncionarioFirstNameColumm;
+
+    @FXML
+    private TextField FuncionarioSearch;
+
+    @FXML
+    private TableColumn<?, ?> FuncionarioSecondNameColumm;
+
+    @FXML
+    private AnchorPane FuncionariosForm;
 
     @FXML
     private Button QuartosDisponiveisBtn;
@@ -21,7 +57,13 @@ public class PrincipalController  {
     private AnchorPane QuartosDisponiveisForm;
 
     @FXML
+    private AnchorPane aboutForm;
+
+    @FXML
     private Button addBtn;
+
+    @FXML
+    private Button addFunBtn;
 
     @FXML
     private Button chekInBtn;
@@ -30,37 +72,52 @@ public class PrincipalController  {
     private Button clearBtn;
 
     @FXML
-    private Button clientBtn;
+    private TableColumn<?, ?> clientCheckIn;
 
     @FXML
-    private TableColumn clientCheckIn;
+    private TableColumn<?, ?> clientCheckOut;
 
     @FXML
-    private TableColumn clientCheckOut;
+    private TableColumn<?, ?> clientFirstName;
 
     @FXML
-    private TableColumn clientFirstName;
+    private TableColumn<?, ?> clientNumber;
 
     @FXML
-    private TableColumn clientNumber;
+    private TableColumn<?, ?> clientNumbersPhone;
 
     @FXML
-    private TableColumn clientNumbersPhone;
+    private TableColumn<?, ?> clientSecondName;
 
     @FXML
-    private TableColumn clientSecondName;
+    private TableColumn<?, ?> clientTotalPayment;
 
     @FXML
-    private TableColumn clientTotalPayment;
+    private Button delFunbtn;
 
     @FXML
     private Button deleteBn;
 
     @FXML
-    private Button funcionariosBtn;
+    private Button editFunBtn;
 
     @FXML
     private Button exitBtn;
+
+    @FXML
+    private TextField funcionarioAge;
+
+    @FXML
+    private Button funcionarioBtn;
+
+    @FXML
+    private ComboBox<?> funcionarioStatus;
+
+    @FXML
+    private TextField funcionariosFirstName;
+
+    @FXML
+    private TextField funcionariosSecondName;
 
     @FXML
     private Button minimizeBtn;
@@ -69,28 +126,28 @@ public class PrincipalController  {
     private TextField roomNumber;
 
     @FXML
-    private TableColumn roomNumberCollum;
+    private TableColumn<QuartosDisoniveis, Integer> roomNumberCollum;
 
     @FXML
     private TextField roomPrice;
 
     @FXML
-    private TableColumn roomPriceCollum;
+    private TableColumn<QuartosDisoniveis, Double> roomPriceCollum;
 
     @FXML
     private TextField roomSearch;
 
     @FXML
-    private TableColumn roomStatusCollum;
+    private ComboBox<?> roomStatus;
 
     @FXML
-    private ComboBox roomType;
+    private TableColumn<QuartosDisoniveis, String> roomStatusCollum;
 
     @FXML
-    private TableColumn roomTypeCollum;
+    private ComboBox<?> roomType;
 
     @FXML
-    private ComboBox roomTypeStatus;
+    private TableColumn<QuartosDisoniveis, String> roomTypeCollum;
 
     @FXML
     private ImageView sairBtn;
@@ -100,6 +157,58 @@ public class PrincipalController  {
 
     @FXML
     private Button updateBtn;
+
+    @FXML
+    private TableView tableViewQuartos;
+
+
+    public String type[] = {"Um Quarto","Dois Quartos","Três Quartos","Quatro Quartos"};
+
+    public void QuartosDisponiveisRoomType(){
+        List<String> listData = new ArrayList<>();
+
+        for(String data: type){
+            listData.add(data);
+        }
+
+        ObservableList lista = FXCollections.observableArrayList(listData);
+        roomType.setItems(lista);
+    }
+
+    public static ObservableList<QuartosDisoniveis> listaQuartos = FXCollections.observableArrayList();
+
+    public static ObservableList<QuartosDisoniveis>getListaQuartos(){
+        return listaQuartos;
+    }
+
+
+    public void associarQuartos(){
+        roomNumberCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisoniveis, Integer>("numQuarto"));
+        roomTypeCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisoniveis, String>("tipoDeQuarto"));
+        roomStatusCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisoniveis, String>("status"));
+        roomPriceCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisoniveis, Double>("preco"));
+        tableViewQuartos.setItems(getListaQuartos());
+    }
+
+    public static void loadRoomList(){
+        listaQuartos.add(new QuartosDisoniveis(1,"Dois Quartos","Disponivel",100));
+    }
+
+
+    public String status[] = {"Disponível","Não Disponível","Ocupado"};
+
+    public void QuartosDisponiveisRoomStatus(){
+        List<String> listData = new ArrayList<>();
+
+        for(String data: status){
+            listData.add(data);
+        }
+
+        ObservableList lista = FXCollections.observableArrayList(listData);
+        roomStatus.setItems(lista);
+
+    }
+
 
     public void exitApplication(ActionEvent actionEvent) {
     }
@@ -189,5 +298,13 @@ public class PrincipalController  {
     }
 
     public void btnDelFunEntered(MouseEvent mouseEvent) {
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        QuartosDisponiveisRoomType();
+        QuartosDisponiveisRoomStatus();
+        associarQuartos();
+        loadRoomList();
     }
 }
