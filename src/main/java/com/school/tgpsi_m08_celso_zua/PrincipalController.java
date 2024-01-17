@@ -5,16 +5,22 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.zip.InflaterInputStream;
 
 public class PrincipalController implements Initializable {
     @FXML
@@ -126,13 +132,13 @@ public class PrincipalController implements Initializable {
     private TextField roomNumber;
 
     @FXML
-    private TableColumn<QuartosDisoniveis, Integer> roomNumberCollum;
+    private TableColumn<QuartosDisponiveis, Integer> roomNumberCollum;
 
     @FXML
     private TextField roomPrice;
 
     @FXML
-    private TableColumn<QuartosDisoniveis, Double> roomPriceCollum;
+    private TableColumn<QuartosDisponiveis, Double> roomPriceCollum;
 
     @FXML
     private TextField roomSearch;
@@ -141,16 +147,16 @@ public class PrincipalController implements Initializable {
     private ComboBox<?> roomStatus;
 
     @FXML
-    private TableColumn<QuartosDisoniveis, String> roomStatusCollum;
+    private TableColumn<QuartosDisponiveis, String> roomStatusCollum;
 
     @FXML
     private ComboBox<?> roomType;
 
     @FXML
-    private TableColumn<QuartosDisoniveis, String> roomTypeCollum;
+    private TableColumn<QuartosDisponiveis, String> roomTypeCollum;
 
     @FXML
-    private ImageView sairBtn;
+    private Button btnSair;
 
     @FXML
     private TextField searchClientes;
@@ -162,12 +168,12 @@ public class PrincipalController implements Initializable {
     private TableView tableViewQuartos;
 
 
-    public String type[] = {"Um Quarto","Dois Quartos","Três Quartos","Quatro Quartos"};
+    public String type[] = {"Um Quarto", "Dois Quartos", "Três Quartos", "Quatro Quartos"};
 
-    public void QuartosDisponiveisRoomType(){
+    public void QuartosDisponiveisRoomType() {
         List<String> listData = new ArrayList<>();
 
-        for(String data: type){
+        for (String data : type) {
             listData.add(data);
         }
 
@@ -175,32 +181,12 @@ public class PrincipalController implements Initializable {
         roomType.setItems(lista);
     }
 
-    public static ObservableList<QuartosDisoniveis> listaQuartos = FXCollections.observableArrayList();
+    public String status[] = {"Disponível", "Não Disponível", "Ocupado"};
 
-    public static ObservableList<QuartosDisoniveis>getListaQuartos(){
-        return listaQuartos;
-    }
-
-
-    public void associarQuartos(){
-        roomNumberCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisoniveis, Integer>("numQuarto"));
-        roomTypeCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisoniveis, String>("tipoDeQuarto"));
-        roomStatusCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisoniveis, String>("status"));
-        roomPriceCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisoniveis, Double>("preco"));
-        tableViewQuartos.setItems(getListaQuartos());
-    }
-
-    public static void loadRoomList(){
-        listaQuartos.add(new QuartosDisoniveis(1,"Dois Quartos","Disponivel",100));
-    }
-
-
-    public String status[] = {"Disponível","Não Disponível","Ocupado"};
-
-    public void QuartosDisponiveisRoomStatus(){
+    public void QuartosDisponiveisRoomStatus() {
         List<String> listData = new ArrayList<>();
 
-        for(String data: status){
+        for (String data : status) {
             listData.add(data);
         }
 
@@ -208,6 +194,19 @@ public class PrincipalController implements Initializable {
         roomStatus.setItems(lista);
 
     }
+    //------------------------------------------------------------------------------------------------------------------
+    // Metodos para a lista dos Quartos disponiveis
+
+    public void associarQuartos() {
+        roomNumberCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, Integer>("numQuarto"));
+        roomTypeCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, String>("tipoDeQuarto"));
+        roomStatusCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, String>("status"));
+        roomPriceCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, Double>("preco"));
+        tableViewQuartos.setItems(Settings.getListaQuartos());
+    }
+
+
+    //------------------------------------------------------------------------------------------------------------------/
 
 
     public void exitApplication(ActionEvent actionEvent) {
@@ -305,6 +304,147 @@ public class PrincipalController implements Initializable {
         QuartosDisponiveisRoomType();
         QuartosDisponiveisRoomStatus();
         associarQuartos();
-        loadRoomList();
+
+    }
+
+    public void verQuartos() {
+        QuartosDisponiveis RoomData = (QuartosDisponiveis) tableViewQuartos.getSelectionModel().getSelectedItem();
+        roomNumber.setText(String.valueOf(RoomData.getNumQuarto()));
+        itemComboBox(roomType, RoomData.getTipoDeQuarto());
+        itemComboBox(roomStatus, RoomData.getStatus());
+        roomPrice.setText(String.valueOf(RoomData.getPreco()));
+    }
+
+    private void itemComboBox(ComboBox<?> roomType, String tipoDeQuarto) {
+
+    }
+
+    public void buttonAddOnAction(ActionEvent actionEvent) {
+        if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
+            alert.setContentText("Clique no botao para tentar novamente!");
+            alert.showAndWait();
+        } else {
+            int quartoNovo = Integer.parseInt(roomNumber.getText());
+            if (Settings.listaQuartos.stream().anyMatch(q -> q.getNumQuarto() == quartoNovo)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERRO");
+                alert.setHeaderText("Esse Botao ja foi inserido, por favor coloque outro");
+                alert.setContentText("Clique no botao para continuar");
+                alert.showAndWait();
+            } else {
+                int newRoom = Integer.parseInt(roomNumber.getText());
+                String newType = String.valueOf(roomType.getSelectionModel().getSelectedItem());
+                String newStatus = String.valueOf(roomStatus.getSelectionModel().getSelectedItem());
+                double newPrice = Double.parseDouble(roomPrice.getText());
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("CONFIRMAR");
+                alert.setHeaderText("Deseja mesmo acionar este pedido?");
+
+                alert.setHeaderText(("Quartos: " + newRoom + "\nTipo de quarto: " + newType + "\nStatus: " + newStatus + "\nPreço: " + newPrice));
+                alert.setContentText("Deseja mesmo adicionar?");
+                ButtonType buttonSim = new ButtonType("Sim");
+                ButtonType buttonNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(buttonSim, buttonNao);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if (choose.get() == buttonSim) {
+                    Settings.listaQuartos.add(new QuartosDisponiveis(newRoom, newType, newStatus, newPrice));
+                    Alert alertAddQuartos = new Alert(Alert.AlertType.INFORMATION);
+                    alertAddQuartos.setTitle("INFORMARÇAO!!!");
+                    alertAddQuartos.setHeaderText("VERIFICANDO DADOS....");
+                    alertAddQuartos.setHeaderText("PRODUTO INSERIDO COM SUCESSO!!");
+                    alertAddQuartos.showAndWait();
+                } else {
+                    Alert alertCancelAddQuartos = new Alert(Alert.AlertType.INFORMATION);
+                    alertCancelAddQuartos.setTitle("INFORMAÇAO!!!");
+                    alertCancelAddQuartos.setContentText("DEIXA DE SER BURRO MADJE-_-");
+                    alertCancelAddQuartos.setContentText("CANCELADO COM SUCESSO!!!");
+                    alertCancelAddQuartos.showAndWait();
+                }
+            }
+
+        }
+    }
+
+
+    public void buttonClearOnAction(ActionEvent actionEvent) {
+        Settings.listaQuartos.clear();
+    }
+
+    public void buttonEditOnAction(ActionEvent actionEvent) {
+        if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
+            alert.setContentText("Clique no botao para tentar novamente!");
+            alert.showAndWait();
+        } else {
+            QuartosDisponiveis EditarQuarto = null;
+            int newRoom = Integer.parseInt(roomNumber.getText());
+            for (QuartosDisponiveis q : Settings.getListaQuartos()) {
+                if (q.getNumQuarto() == newRoom) {
+                    EditarQuarto = q;
+                    break;
+                }
+            }
+            if (EditarQuarto != null){
+                EditarQuarto.setNumQuarto(roomNumber.getText());
+                EditarQuarto.getTipoDeQuarto(roomType.getSelectionModel().getSelectedItem());
+
+
+            }
+        }
+    }
+
+
+
+    public void ButtonSairOnAction(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnSair.getScene().getWindow();
+        stage.close();
+    }
+
+
+    public void btnDeleteOnAction(ActionEvent actionEvent) {
+        if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Nao selecionou nenhum item,por favor selecione um item!!!");
+            alert.setContentText("Clique no botão para continuar");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("ELIMINAR");
+            alert.setHeaderText("Quartos: " + roomNumber + "\nTipo de quarto: " + roomType + "\nStatus: " + roomStatus + "\nPreço: " + roomPrice);
+            alert.setContentText("Deseja realemte elimiar?");
+            ButtonType ButtonSim = new ButtonType("Sim");
+            ButtonType ButtonNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(ButtonSim, ButtonNao);
+            Optional<ButtonType> choose = alert.showAndWait();
+
+            if (choose.get() == ButtonSim) {
+                int newRoom = Integer.parseInt(roomNumber.getText());
+                for (QuartosDisponiveis q : Settings.listaQuartos) {
+                    if (q.getNumQuarto() == newRoom) {
+                        Settings.getListaQuartos().remove(q);
+                        Alert alertRmQuartos = new Alert(Alert.AlertType.ERROR);
+                        alertRmQuartos.setTitle("INFORMACÇAO!!!");
+                        alertRmQuartos.setHeaderText("O seu quarto foi eliminado");
+                        alertRmQuartos.setContentText("| Clique no botão para continuar |");
+                        alertRmQuartos.showAndWait();
+                        break;
+                    }
+                }
+            } else {
+                Alert alertRmCancel = new Alert(Alert.AlertType.INFORMATION);
+                alertRmCancel.setTitle("INFORMAÇAO!!!");
+                alertRmCancel.setHeaderText("Pedido cancelado com sucesso!!!");
+                alertRmCancel.setContentText("Clique no botao para continuar.");
+                alertRmCancel.showAndWait();
+            }
+
+        }
     }
 }

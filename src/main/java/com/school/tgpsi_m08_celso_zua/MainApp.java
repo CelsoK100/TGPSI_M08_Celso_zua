@@ -14,11 +14,12 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("principal.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         //primaryStage.setTitle("Login");
+        Settings.loadRoomList();
         primaryStage.show();
     }
 }
