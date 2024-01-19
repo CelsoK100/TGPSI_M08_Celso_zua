@@ -28,16 +28,6 @@
                            <children>
                               <AnchorPane prefHeight="27.0" prefWidth="1142.0" style="-fx-background-color: fff;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button fx:id="exitBtn" layoutX="1083.0" layoutY="1.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="26.0" prefWidth="59.0" text="X">
-                                       <font>
-                                          <Font name="Arial Bold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="minimizeBtn" layoutX="1043.0" layoutY="1.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="40.0" text="-">
-                                       <font>
-                                          <Font name="Arial Bold" size="14.0" />
-                                       </font>
-                                    </Button>
                                     <ImageView fitHeight="24.0" fitWidth="89.0" layoutX="11.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@imagem/a00802aaa967adf9a347ed226de6d90b-removebg-preview.png" />
@@ -68,7 +58,7 @@
                                           <Font name="Comic Sans MS" size="24.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="QuartosDisponiveisBtn" layoutX="19.0" layoutY="232.0" mnemonicParsing="false" onAction="#switchformOnAction" onMouseEntered="#btnRooomEntered" onMouseExited="#btnRoomExited" prefHeight="37.0" prefWidth="205.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Quartos Disponiveis" textFill="WHITE">
+                                    <Button fx:id="QuartosDisponiveisBtn" layoutX="19.0" layoutY="232.0" mnemonicParsing="false" onAction="#buttonQDForOnAction" onMouseEntered="#btnRooomEntered" onMouseExited="#btnRoomExited" prefHeight="37.0" prefWidth="205.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Quartos Disponiveis" textFill="WHITE">
                                        <font>
                                           <Font name="Comic Sans MS Bold" size="18.0" />
                                        </font>
@@ -77,7 +67,7 @@
                                        </cursor>
                                     </Button>
                                     <Line endX="84.0" fill="WHITE" layoutX="120.0" layoutY="210.0" startX="-82.0" stroke="WHITE" />
-                                    <Button fx:id="ClientBtn" layoutX="15.0" layoutY="337.0" mnemonicParsing="false" onAction="#switchformOnAction" onMouseEntered="#btnClientEntered" onMouseExited="#btnClientExited" prefHeight="39.0" prefWidth="212.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Clientes" textFill="WHITE">
+                                    <Button fx:id="ClientBtn" layoutX="15.0" layoutY="337.0" mnemonicParsing="false" onAction="#buttonClientFormOnAaction" onMouseEntered="#btnClientEntered" onMouseExited="#btnClientExited" prefHeight="39.0" prefWidth="212.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Clientes" textFill="WHITE">
                                        <font>
                                           <Font name="Comic Sans MS Bold" size="18.0" />
                                        </font>
@@ -85,7 +75,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="funcionarioBtn" layoutX="17.0" layoutY="288.0" mnemonicParsing="false" onAction="#switchformOnAction" onMouseEntered="#btnFuncionariosEntered" onMouseExited="#btnFuncionariosExited" prefHeight="39.0" prefWidth="208.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Funcionarios" textFill="WHITE">
+                                    <Button fx:id="funcionarioBtn" layoutX="17.0" layoutY="288.0" mnemonicParsing="false" onAction="#buttonFunFormOnAction" onMouseEntered="#btnFuncionariosEntered" onMouseExited="#btnFuncionariosExited" prefHeight="39.0" prefWidth="208.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Funcionarios" textFill="WHITE">
                                        <font>
                                           <Font name="Comic Sans MS" size="18.0" />
                                        </font>
@@ -104,7 +94,7 @@
                                           <Image url="@imagem/pngtree-user-icon-png-image_1796659-removebg-preview.png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="AcercaDeBtn" layoutX="16.0" layoutY="389.0" mnemonicParsing="false" onAction="#switchformOnAction" onMouseEntered="#btnAcercaDeEntered" onMouseExited="#btnAcercaDeExited" prefHeight="39.0" prefWidth="210.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Acerca De" textFill="WHITE">
+                                    <Button fx:id="AcercaDeBtn" layoutX="16.0" layoutY="389.0" mnemonicParsing="false" onAction="#buttonAcercaDeOnAction" onMouseEntered="#btnAcercaDeEntered" onMouseExited="#btnAcercaDeExited" prefHeight="39.0" prefWidth="210.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Acerca De" textFill="WHITE">
                                        <font>
                                           <Font name="Comic Sans MS Bold" size="18.0" />
                                        </font>
@@ -112,7 +102,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <ImageView fitHeight="36.0" fitWidth="64.0" layoutX="46.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="84.0" fitWidth="63.0" layoutX="37.0" layoutY="476.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@imagem/png-transparent-black-arrow-inside-box-logo-computer-icons-scalable-graphics-desktop-exit-icon-close-miscellaneous-angle-text-removebg-preview.png" />
                                        </image>
@@ -125,7 +115,7 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <AnchorPane fx:id="QuartosDisponiveisForm" prefHeight="538.0" prefWidth="901.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="QuartosDisponiveisForm" prefHeight="538.0" prefWidth="901.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <AnchorPane layoutX="14.0" layoutY="13.0" prefHeight="544.0" prefWidth="310.0" style="-fx-background-color: #fff; -fx-background-radius: 10;">
                                        <effect>
@@ -350,7 +340,7 @@
                                     </AnchorPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="ClientForm" layoutX="13.0" layoutY="6.0" prefHeight="566.0" prefWidth="898.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                              <AnchorPane fx:id="ClientForm" layoutX="13.0" layoutY="6.0" prefHeight="566.0" prefWidth="898.0" visible="false" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                                  <children>
                                     <AnchorPane layoutX="-15.0" prefHeight="555.0" prefWidth="951.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-44.0" AnchorPane.topAnchor="0.0">
                                        <children>

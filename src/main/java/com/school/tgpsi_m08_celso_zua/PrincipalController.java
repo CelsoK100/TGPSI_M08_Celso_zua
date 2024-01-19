@@ -502,7 +502,7 @@ public class PrincipalController implements Initializable {
     }
 
     public void buttonaddClientOnAction(ActionEvent actionEvent) {
-        if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || clientCheckOut.getText().isEmpty()) {
+        if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || ClientCheckOut.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
             alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
@@ -520,8 +520,8 @@ public class PrincipalController implements Initializable {
                 int newIDCliente = Integer.parseInt(clientID.getText());
                 String newName = String.valueOf(ClienteNome.getText());
                 String newPhoneNumber = String.valueOf(ClienteTelefone.getText());
-                String newDateCheckIn = String.valueOf(clientCheckIn.getText());
-                String newDateCheckOut = String.valueOf(clientCheckOut.getText());
+                String newDateCheckIn = String.valueOf(ClientCheckIn.getText());
+                String newDateCheckOut = String.valueOf(ClientCheckOut.getText());
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("CONFIRMAR");
@@ -553,16 +553,117 @@ public class PrincipalController implements Initializable {
     }
 
     public void buttonEditClientOnAction(ActionEvent actionEvent) {
+        if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || ClientCheckOut.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
+            alert.setContentText("Clique no botao para tentar novamente!");
+            alert.showAndWait();
+        } else {
+            //Settings.EditarQuarto = null;
+            int newClient = Integer.parseInt(clientID.getText());
+            for (Cliente c : Settings.getListaClientes()) {
+                if (c.getIdClientes() == newClient) {
+                    Settings.EditarCliente = c;
+                    break;
+                }
+            }
+            if (Settings.EditarCliente != null){
+                Settings.EditarCliente.setNome(ClienteNome.getText());
+                Settings.EditarCliente.setTelefone(ClienteTelefone.getText());
+                Settings.EditarCliente.setCheckIn(ClientCheckIn.getText());
+                Settings.EditarCliente.setCheckOut(ClientCheckOut.getText());
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Editar Quarto");
+                alert.setHeaderText("deseja realmente editar?");
+                alert.setContentText("Clique no botao para continuar");
+                ButtonType ButtonSim = new ButtonType("Sim");
+                ButtonType ButtonNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(ButtonSim,ButtonNao);
+                Alert alertEditRoom = new Alert(Alert.AlertType.INFORMATION);
+                alertEditRoom.setTitle("CONFIRMAÇÃO!!!");
+                alertEditRoom.setHeaderText(null);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if(choose.get() == ButtonSim){
+                    for(Cliente cliente: Settings.getListaClientes()) {
+                        if (cliente.getIdClientes() == Settings.getEditarCliente().getIdClientes()) {
+                            int index = Settings.getListaClientes().indexOf(cliente);
+                            Settings.getListaClientes().set(index, Settings.getEditarCliente());
+                            break;
+                        }
+                    }
+                    Settings.setEditarCliente(Settings.EditarCliente);
+                    tableViewQuartos.refresh();
+                    alertEditRoom.setHeaderText("Ediçao realizada com sucesso");
+                    alertEditRoom.setContentText("| Clique no botão para continuar ->");
+                    alertEditRoom.showAndWait();
+                    Settings.setEditarQuarto(null);
+                } else{
+                    Alert alertEditCancel = new Alert(Alert.AlertType.INFORMATION);
+                    alertEditCancel.setTitle("INFORMAÇÃO!!!");
+                    alertEditCancel.setHeaderText("Operação cancelada com sucesso");
+                    alertEditCancel.showAndWait();
+                }
+            }else {
+                Alert alertIDNotFound = new Alert(Alert.AlertType.ERROR);
+                alertIDNotFound.setContentText("ERRO");
+                alertIDNotFound.setHeaderText("Numero do quarto nao encontra    do");
+                alertIDNotFound.setContentText("Clique no botao para continuar");
+                alertIDNotFound.showAndWait();
+            }
+
+
+        }
     }
 
     public void buttonClearClientOnAction(ActionEvent actionEvent) {
         Settings.listaClientes.clear();
     }
+
     public void buttonClearFunOnAction(ActionEvent actionEvent) {
         Settings.listaFuncionarios.clear();
     }
 
     public void buttonDeleteClientOnAction(ActionEvent actionEvent) {
+        if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || ClientCheckOut.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Nao selecionou nenhum item,por favor selecione um item!!!");
+            alert.setContentText("Clique no botão para continuar");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("ELIMINAR");
+            alert.setHeaderText("ID cliente: " + clientID.getText() + "\nTelefone: " + ClienteNome.getText() + "\n:Nome " + ClienteNome.getText() + "\nCheck-IN: " + ClientCheckIn.getText() + "\nCheck-OUT:" + ClientCheckOut.getText());
+            alert.setContentText("Deseja realemte elimiar?");
+            ButtonType ButtonSim = new ButtonType("Sim");
+            ButtonType ButtonNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(ButtonSim, ButtonNao);
+            Optional<ButtonType> choose = alert.showAndWait();
+
+            if (choose.get() == ButtonSim) {
+                int newClient = Integer.parseInt(clientID.getText());
+                for (Cliente cliente : Settings.listaClientes) {
+                    if (cliente.getIdClientes() == newClient) {
+                        Settings.getListaClientes().remove(cliente);
+                        Alert alertRmQuartos = new Alert(Alert.AlertType.INFORMATION);
+                        alertRmQuartos.setTitle("INFORMACÇAO!!!");
+                        alertRmQuartos.setHeaderText("O seu quarto foi eliminado");
+                        alertRmQuartos.setContentText("| Clique no botão para continuar |");
+                        alertRmQuartos.showAndWait();
+                        break;
+                    }
+                }
+            } else {
+                Alert alertRmCancel = new Alert(Alert.AlertType.INFORMATION);
+                alertRmCancel.setTitle("INFORMAÇAO!!!");
+                alertRmCancel.setHeaderText("Pedido cancelado com sucesso!!!");
+                alertRmCancel.setContentText("Clique no botao para continuar.");
+                alertRmCancel.showAndWait();
+            }
+
+        }
     }
 
     public void buttonClearOnAction(ActionEvent actionEvent) {
@@ -708,45 +809,67 @@ public class PrincipalController implements Initializable {
         tableViewQuartos.setItems(sortList);
     }
 
+    public void procurarFuncionario(KeyEvent keyEvent){
+        FilteredList<Funcionario> filter = new FilteredList<>(Settings.listaFuncionarios, e -> true);
+
+        FuncionarioSearch.textProperty().addListener((Observable, oldValue, newValue) ->{
+
+            filter.setPredicate(predicateFuncionario ->{
+                if(newValue == null && newValue.isEmpty()){
+                    return true;
+                }
+                String ProcurarF = newValue.toLowerCase();
+                if (String.valueOf(predicateFuncionario.getId()).contains(ProcurarF)){
+                    return true;
+                }else if (predicateFuncionario.getPrimeiroNome().toLowerCase().contains(ProcurarF)) {
+                    return true;
+                } else if (predicateFuncionario.getSegundoNome().toLowerCase().contains(ProcurarF)) {
+                    return true;
+                } else if (predicateFuncionario.getCargo().contains(ProcurarF)) {
+                    return true;
+
+                } else if (String.valueOf(predicateFuncionario.getIdade()).contains(ProcurarF)) {
+
+                }
+                return false;
+            });
+        });
+        SortedList<Funcionario> sortList =  new SortedList<>(filter);
+        sortList.comparatorProperty().bind(tableViewFuncionarios.comparatorProperty());
+        tableViewFuncionarios.setItems(sortList);
+    }
+
+    public void procurarClientes(KeyEvent keyEvent){
+        FilteredList<Cliente> filter = new FilteredList<>(Settings.listaClientes, e -> true);
+
+        searchClientes.textProperty().addListener((Observable, oldValue, newValue) ->{
+
+            filter.setPredicate(predicateClient ->{
+                if(newValue == null && newValue.isEmpty()){
+                    return true;
+                }
+                String ProcurarC = newValue.toLowerCase();
+                if (String.valueOf(predicateClient.getIdClientes()).contains(ProcurarC)){
+                    return true;
+                }else if (predicateClient.getNome().toLowerCase().contains(ProcurarC)) {
+                    return true;
+                } else if (predicateClient.getTelefone().toLowerCase().contains(ProcurarC)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Cliente> sortList =  new SortedList<>(filter);
+        sortList.comparatorProperty().bind(ClientTableView.comparatorProperty());
+        ClientTableView.setItems(sortList);
+    }
 
 
 
 
 //----------------------------------------------------------------------------------------------------------------------
 
-    public void switchformOnAction(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == "QuartosDisponiveisBtn"){
-            if(actionEvent.getSource() == QuartosDisponiveisForm){
-                QuartosDisponiveisForm.setVisible(true);
-                FuncionariosForm.setVisible(false);
-                ClientForm.setVisible(false);
-                aboutForm.setVisible(false);
-            }
-            else if (actionEvent.getSource() == "funcionarioBtn") {
-                if(actionEvent.getSource() == FuncionariosForm){
-                    QuartosDisponiveisForm.setVisible(false);
-                    FuncionariosForm.setVisible(true);
-                    ClientForm.setVisible(false);
-                    aboutForm.setVisible(false);
-                }
 
-
-            } else if (actionEvent.getSource() == "ClientBtn") {
-                QuartosDisponiveisForm.setVisible(false);
-                FuncionariosForm.setVisible(false);
-                ClientForm.setVisible(true);
-                aboutForm.setVisible(false);
-
-            } else if (actionEvent.getSource() == "AcercaDeBtn") {
-                QuartosDisponiveisForm.setVisible(false);
-                FuncionariosForm.setVisible(false);
-                ClientForm.setVisible(false);
-                aboutForm.setVisible(true);
-
-
-            }
-        }
-    }
 
 
     public void exitApplication(ActionEvent actionEvent) {
@@ -852,4 +975,32 @@ public class PrincipalController implements Initializable {
     }
 
 
+    public void buttonQDForOnAction(ActionEvent actionEvent) {
+        QuartosDisponiveisForm.setVisible(true);
+        FuncionariosForm.setVisible(false);
+        ClientForm.setVisible(false);
+        aboutForm.setVisible(false);
+
+    }
+
+    public void buttonClientFormOnAaction(ActionEvent actionEvent) {
+        QuartosDisponiveisForm.setVisible(false);
+        FuncionariosForm.setVisible(true);
+        ClientForm.setVisible(false);
+        aboutForm.setVisible(false);
+    }
+
+    public void buttonFunFormOnAction(ActionEvent actionEvent) {
+        QuartosDisponiveisForm.setVisible(false);
+        FuncionariosForm.setVisible(false);
+        ClientForm.setVisible(true);
+        aboutForm.setVisible(false);
+    }
+
+    public void buttonAcercaDeOnAction(ActionEvent actionEvent) {
+        QuartosDisponiveisForm.setVisible(false);
+        FuncionariosForm.setVisible(false);
+        ClientForm.setVisible(false);
+        aboutForm.setVisible(true);
+    }
 }
