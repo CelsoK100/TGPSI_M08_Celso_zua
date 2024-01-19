@@ -93,16 +93,8 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="btnSair" layoutX="29.0" layoutY="470.0" mnemonicParsing="false" onAction="#ButtonSairOnAction" prefHeight="29.0" prefWidth="38.0" style="-fx-background-color: transparent; -fx-font-family: tahoma; -fx-cursor: hand;" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="470.0">
-                                       <graphic>
-                                          <ImageView fitHeight="59.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@imagem/png-transparent-black-arrow-inside-box-logo-computer-icons-scalable-graphics-desktop-exit-icon-close-miscellaneous-angle-text-removebg-preview.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                    <Label layoutX="123.0" layoutY="480.0" prefHeight="33.0" prefWidth="61.0" text="SAIR" textFill="WHITE">
+                                    <Button fx:id="btnSair" layoutX="29.0" layoutY="470.0" mnemonicParsing="false" onAction="#ButtonSairOnAction" prefHeight="29.0" prefWidth="38.0" style="-fx-background-color: transparent; -fx-font-family: tahoma; -fx-cursor: hand;" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="470.0" />
+                                    <Label layoutX="105.0" layoutY="480.0" prefHeight="33.0" prefWidth="61.0" text="SAIR" textFill="WHITE">
                                        <font>
                                           <Font name="Comic Sans MS Bold" size="18.0" />
                                        </font>
@@ -120,6 +112,11 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
+                                    <ImageView fitHeight="36.0" fitWidth="64.0" layoutX="46.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@imagem/png-transparent-black-arrow-inside-box-logo-computer-icons-scalable-graphics-desktop-exit-icon-close-miscellaneous-angle-text-removebg-preview.png" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -214,7 +211,7 @@
                                           <DropShadow />
                                        </effect>
                                        <children>
-                                          <TableView fx:id="tableViewQuartos" layoutX="9.0" layoutY="53.0" onMouseClicked="#verQuartos" prefHeight="485.0" prefWidth="550.0" style="-fx-background-color: #263F73; -fx-padding: 2; -fx-border-color: #263F73; -fx-border-radius: 8; -fx-background-radius: 10;">
+                                          <TableView fx:id="tableViewQuartos" layoutX="9.0" layoutY="45.0" onMouseClicked="#verQuartos" prefHeight="485.0" prefWidth="550.0" style="-fx-background-color: #263F73; -fx-padding: 2; -fx-border-color: #263F73; -fx-border-radius: 8; -fx-background-radius: 10;">
                                             <columns>
                                               <TableColumn fx:id="roomNumberCollum" prefWidth="114.0" style="-fx-background-radius: 8; -fx-background-color: #263F73; -fx-border-color: #263F73; -fx-border-width: 8;" text="Quartos" />
                                               <TableColumn fx:id="roomTypeCollum" prefWidth="147.0" style="-fx-background-radius: 8;" text="Tipo de quarto" />
@@ -225,12 +222,12 @@
                                                 <DropShadow />
                                              </effect>
                                           </TableView>
-                                          <TextField fx:id="roomSearch" layoutX="10.0" layoutY="21.0" onKeyPressed="#procurarQuarto" prefHeight="25.0" prefWidth="236.0" promptText="Procurar">
+                                          <TextField fx:id="roomSearch" layoutX="14.0" layoutY="11.0" onKeyPressed="#procurarQuarto" prefHeight="25.0" prefWidth="236.0" promptText="Procurar">
                                              <effect>
                                                 <DropShadow />
                                              </effect>
                                           </TextField>
-                                          <ImageView fitHeight="22.0" fitWidth="61.0" layoutX="206.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="22.0" fitWidth="61.0" layoutX="210.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@imagem/png-transparent-magnifying-glass-magnification-magnifying-glass-glass-logo-light-removebg-preview.png" />
                                              </image>
@@ -239,9 +236,9 @@
                                     </AnchorPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="FuncionariosForm" layoutX="34.0" layoutY="-24.0" prefHeight="585.0" prefWidth="905.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="FuncionariosForm" prefHeight="585.0" prefWidth="905.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <AnchorPane layoutX="14.0" layoutY="13.0" prefHeight="544.0" prefWidth="300.0" style="-fx-background-color: fff; -fx-background-radius: 10;">
+                                    <AnchorPane layoutX="14.0" layoutY="12.0" prefHeight="544.0" prefWidth="300.0" style="-fx-background-color: fff; -fx-background-radius: 10;">
                                        <effect>
                                           <DropShadow />
                                        </effect>
@@ -298,7 +295,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="ClearFunBtn" layoutX="34.0" layoutY="329.0" mnemonicParsing="false" onMouseEntered="#btnClearFunEntered" onMouseExited="#btnClearFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Limpar" textFill="WHITE">
+                                          <Button fx:id="ClearFunBtn" layoutX="34.0" layoutY="329.0" mnemonicParsing="false" onAction="#buttonClearFunOnAction" onMouseEntered="#btnClearFunEntered" onMouseExited="#btnClearFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Limpar" textFill="WHITE">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
@@ -326,18 +323,18 @@
                                           </TextField>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane layoutX="327.0" layoutY="13.0" prefHeight="542.0" prefWidth="573.0" style="-fx-background-color: fff; -fx-background-radius: 10;">
+                                    <AnchorPane layoutX="327.0" layoutY="13.0" prefHeight="542.0" prefWidth="587.0" style="-fx-background-color: fff; -fx-background-radius: 10;">
                                        <effect>
                                           <DropShadow />
                                        </effect>
                                        <children>
-                                          <TableView fx:id="tableViewFuncionarios" layoutX="5.0" layoutY="54.0" prefHeight="476.0" prefWidth="564.0" style="-fx-background-color: #263F73; -fx-background-radius: 10;">
+                                          <TableView fx:id="tableViewFuncionarios" layoutX="5.0" layoutY="54.0" onMouseClicked="#verFuncionario" prefHeight="476.0" prefWidth="580.0" style="-fx-background-color: #263F73; -fx-background-radius: 10;">
                                             <columns>
-                                              <TableColumn fx:id="FuncionarioIdColumm" prefWidth="83.0" style="-fx-background-color: fff;" text="ID " />
-                                                <TableColumn fx:id="FuncionarioFirstNameColumm" prefWidth="147.0" style="-fx-background-color: fff;" text="primeiro nome" />
-                                                <TableColumn fx:id="FuncionarioSecondNameColumm" prefWidth="132.0" style="-fx-background-color: fff;" text="Segundo nome" />
-                                                <TableColumn fx:id="FuncionarioAgeColumm" prefWidth="97.0" style="-fx-background-color: fff;" text="idade" />
-                                                <TableColumn fx:id="FuncionarioCargoColumm" prefWidth="122.0" style="-fx-background-color: fff;" text="Cargo" />
+                                              <TableColumn fx:id="FuncionarioIdColumm" prefWidth="83.0" style="-fx-background-radius: 10;" text="ID " />
+                                                <TableColumn fx:id="FuncionarioFirstNameColumm" prefWidth="147.0" style="-fx-background-radius: 10;" text="primeiro nome" />
+                                                <TableColumn fx:id="FuncionarioSecondNameColumm" prefWidth="132.0" style="-fx-background-radius: 10;" text="Segundo nome" />
+                                                <TableColumn fx:id="FuncionarioAgeColumm" prefWidth="97.0" style="-fx-background-radius: 10;" text="idade" />
+                                                <TableColumn fx:id="FuncionarioCargoColumm" prefWidth="122.0" style="-fx-background-radius: 10;" text="Cargo" />
                                             </columns>
                                              <effect>
                                                 <DropShadow />
@@ -353,27 +350,126 @@
                                     </AnchorPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="ClientForm" layoutX="19.0" layoutY="6.0" prefHeight="566.0" prefWidth="880.0" visible="false" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                              <AnchorPane fx:id="ClientForm" layoutX="13.0" layoutY="6.0" prefHeight="566.0" prefWidth="898.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                                  <children>
-                                    <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="567.0" prefWidth="889.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+                                    <AnchorPane layoutX="-15.0" prefHeight="555.0" prefWidth="951.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-44.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <TableView fx:id="ClientTableView" layoutY="54.0" prefHeight="499.0" prefWidth="884.0" style="-fx-border-color: #263F73; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #263F73;">
-                                            <columns>
-                                              <TableColumn fx:id="clientNumber" prefWidth="104.0" style="-fx-background-color: #fff;" text="Cliente nº" />
-                                              <TableColumn fx:id="clientFirstName" prefWidth="136.0" style="-fx-background-color: #fff;" text="Primeiro nome" />
-                                                <TableColumn fx:id="clientSecondName" prefWidth="125.0" style="-fx-background-color: #fff;" text="Segundo nome" />
-                                                <TableColumn fx:id="clientNumbersPhone" prefWidth="112.0" style="-fx-background-color: #fff;" text="telefone" />
-                                                <TableColumn fx:id="clientTotalPayment" prefWidth="120.0" style="-fx-background-color: #fff;" text="Total a pagar" />
-                                                <TableColumn fx:id="clientCheckIn" prefWidth="116.0" style="-fx-background-color: #fff;" text="Check-In" />
-                                                <TableColumn fx:id="clientCheckOut" prefWidth="161.0" style="-fx-background-color: #fff;" text="Check-Out" />
-                                            </columns>
-                                          </TableView>
-                                          <TextField fx:id="searchClientes" layoutX="5.0" layoutY="14.0" prefHeight="25.0" prefWidth="319.0" promptText="Procurar" />
-                                          <ImageView fitHeight="28.0" fitWidth="34.0" layoutX="290.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@imagem/png-transparent-magnifying-glass-magnification-magnifying-glass-glass-logo-light-removebg-preview.png" />
-                                             </image>
-                                          </ImageView>
+                                          <AnchorPane layoutX="306.0" layoutY="-1.0" prefHeight="556.0" prefWidth="610.0" style="-fx-background-color: fff; -fx-background-radius: 10;">
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
+                                             <children>
+                                                <TableView fx:id="ClientTableView" layoutX="7.0" layoutY="42.0" onMouseClicked="#verClientes" prefHeight="498.0" prefWidth="597.0" style="-fx-border-color: #263F73; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #263F73;">
+                                                  <columns>
+                                                    <TableColumn fx:id="clientNumberCollumn" prefWidth="92.0" style="-fx-background-color: #fff;" text="Cliente nº" />
+                                                    <TableColumn fx:id="clientNameCollumn" prefWidth="136.0" style="-fx-background-color: #fff;" text="nome" />
+                                                      <TableColumn fx:id="clientNumberPhoneCollumn" prefWidth="127.0" style="-fx-background-color: #fff;" text="telefone" />
+                                                      <TableColumn fx:id="clientCheckInCollumn" prefWidth="106.0" style="-fx-background-color: #fff;" text="Check-In" />
+                                                      <TableColumn fx:id="clientCheckOutCollumn" prefWidth="135.0" style="-fx-background-color: #fff;" text="Check-Out" />
+                                                  </columns>
+                                                </TableView>
+                                                <TextField fx:id="searchClient" layoutX="17.0" layoutY="13.0" prefHeight="25.0" prefWidth="319.0" promptText="Procurar" />
+                                                <ImageView fitHeight="28.0" fitWidth="34.0" layoutX="298.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@imagem/png-transparent-magnifying-glass-magnification-magnifying-glass-glass-logo-light-removebg-preview.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane layoutX="13.0" layoutY="-1.0" prefHeight="554.0" prefWidth="285.0" style="-fx-background-color: fff; -fx-background-radius: 10;">
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
+                                             <children>
+                                                <Label layoutX="21.0" layoutY="90.0" prefHeight="9.0" prefWidth="62.0" text="IDCliente:">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="ClienteNome" layoutX="83.0" layoutY="126.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label layoutX="28.0" layoutY="131.0" prefHeight="18.0" prefWidth="49.0" text="Nome:">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="20.0" layoutY="169.0" prefHeight="18.0" prefWidth="66.0" text="Telefone:">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="ClienteTelefone" layoutX="83.0" layoutY="164.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label layoutX="19.0" layoutY="208.0" prefHeight="18.0" prefWidth="66.0" text="Check-In:">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="13.0" layoutY="246.0" prefHeight="18.0" prefWidth="78.0" text="Check-Out:">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label alignment="CENTER" layoutX="1.0" layoutY="21.0" prefHeight="17.0" prefWidth="277.0" text="MENU CLIENTE">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Button fx:id="addClientBtn" layoutX="30.0" layoutY="300.0" mnemonicParsing="false" onAction="#buttonaddClientOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Adicionar" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="13.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <Button fx:id="editClientBtn" layoutX="148.0" layoutY="300.0" mnemonicParsing="false" onAction="#buttonEditClientOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Editar" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="13.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <Button fx:id="clearClientBtn" layoutX="30.0" layoutY="367.0" mnemonicParsing="false" onAction="#buttonClearClientOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Limpar" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="13.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <Button fx:id="deleteClientBtn" layoutX="148.0" layoutY="367.0" mnemonicParsing="false" onAction="#buttonDeleteClientOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Eliminar" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Comic Sans MS Bold" size="13.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <TextField fx:id="clientID" layoutX="86.0" layoutY="85.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                                <TextField fx:id="ClientCheckOut" layoutX="83.0" layoutY="241.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                                <TextField fx:id="ClientCheckIn" layoutX="86.0" layoutY="203.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </AnchorPane>
                                  </children>

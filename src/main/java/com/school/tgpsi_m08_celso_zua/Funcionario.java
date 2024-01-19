@@ -8,15 +8,19 @@ public class Funcionario {
     private String cargo;
 
 
-    public Funcionario( int id, String primeiroNome,String segundoNome, int idade,String Cargo) {
-       this.id = id;
+    public Funcionario(int id, String primeiroNome, String segundoNome, int idade, String cargo) {
+        this.id = id;
         this.primeiroNome = primeiroNome;
         this.segundoNome = segundoNome;
         this.idade = idade;
         this.cargo = cargo;
     }
+
     public int getId(){
         return id;
+    }
+    public void setId(int id){
+        this.id = id;
     }
 
 

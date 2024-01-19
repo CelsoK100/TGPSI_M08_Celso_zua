@@ -20,6 +20,8 @@ public class MainApp extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         //primaryStage.setTitle("Login");
         Settings.loadRoomList();
+        Settings.loadFuncionariosList();
+        Settings.loadClientList();
         primaryStage.show();
     }
 }
