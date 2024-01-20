@@ -197,8 +197,20 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button updateBtn;
 
+    @FXML
+    private Button addClientBtn;
 
-    //----------------------------------------------------------------------------------------------------------------------
+    @FXML
+    private Button editClientBtn;
+
+    @FXML
+    private Button clearClientBtn;
+
+    @FXML
+    private Button deleteClientBtn;
+
+
+//----------------------------------------------------------------------------------------------------------------------
 // METODOS PARA A CLASSE QUARTOS DISPONIVEIS
     public String type[] = {"Um Quarto", "Dois Quartos", "Três Quartos", "Quatro Quartos"};
 
@@ -239,7 +251,9 @@ public class PrincipalController implements Initializable {
         funcionarioCargo.setItems(lista);
     }
 
+//----------------------------------------------------------------------------------------------------------------------
 
+//----------------------------------------------------------------------------------------------------------------------
 
     public void associarQuartos() {
         roomNumberCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, Integer>("numQuarto"));
@@ -268,8 +282,9 @@ public class PrincipalController implements Initializable {
         ClientTableView.setItems(Settings.getListaClientes());
     }
 
+//----------------------------------------------------------------------------------------------------------------------
 
-
+    //----------------------------------------------------------------------------------------------------------------------
     public void verQuartos() {
         QuartosDisponiveis RoomDataVer = (QuartosDisponiveis) tableViewQuartos.getSelectionModel().getSelectedItem();
         roomNumber.setText(String.valueOf(RoomDataVer.getNumQuarto()));
@@ -295,6 +310,7 @@ public class PrincipalController implements Initializable {
         ClientCheckIn.setText(String.valueOf(clienteDataVer.getCheckIn()));
         ClientCheckOut.setText(String.valueOf(clienteDataVer.getCheckOut()));
     }
+//----------------------------------------------------------------------------------------------------------------------
 
     public void buttonAddOnAction(ActionEvent actionEvent) {
         if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
@@ -395,112 +411,6 @@ public class PrincipalController implements Initializable {
 
         }
     }
-
-    public void buttonEditFunOnAction(ActionEvent actionEvent) {
-        if (funcionariosId.getText().isEmpty() || funcionariosFirstName.getText().isEmpty() || funcionariosSecondName.getText().isEmpty()|| funcionarioAge.getText().isEmpty() ||funcionarioCargo.getSelectionModel().getSelectedItem() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERRO");
-            alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
-            alert.setContentText("Clique no botao para tentar novamente!");
-            alert.showAndWait();
-        } else {
-            //Settings.EditarQuarto = null;
-            int newFuncionario = Integer.parseInt(funcionariosId.getText());
-            for (Funcionario f : Settings.getListaFuncionarios()) {
-                if (f.getId() == newFuncionario) {
-                    Settings.EditarFuncionario = f;
-                    break;
-                }
-            }
-            if (Settings.EditarFuncionario != null){
-                Settings.EditarFuncionario.setPrimeiroNome(funcionariosFirstName.getText());
-                Settings.EditarFuncionario.setSegundoNome(funcionariosSecondName.getText());
-                Settings.EditarFuncionario.setIdade(Integer.parseInt(funcionarioAge.getText()));
-                Settings.EditarFuncionario.setCargo((String) funcionarioCargo.getSelectionModel().getSelectedItem());
-
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Editar Funcionario");
-                alert.setHeaderText("deseja realmente editar?");
-                alert.setContentText("Clique no botao para continuar");
-                ButtonType ButtonSim = new ButtonType("Sim");
-                ButtonType ButtonNao = new ButtonType("Não");
-                alert.getButtonTypes().setAll(ButtonSim,ButtonNao);
-                Alert alertEditFuncionario = new Alert(Alert.AlertType.INFORMATION);
-                alertEditFuncionario.setTitle("CONFIRMAÇÃO!!!");
-                alertEditFuncionario.setHeaderText(null);
-                Optional<ButtonType> choose = alert.showAndWait();
-                if(choose.get() == ButtonSim){
-                    for(Funcionario fun: Settings.getListaFuncionarios()) {
-                        if (fun.getId() == Settings.getEditarFuncionario().getId()){
-                            int index = Settings.getListaFuncionarios().indexOf(fun);
-                            Settings.getListaFuncionarios().set(index, Settings.getEditarFuncionario());
-                            break;
-                        }
-                    }
-                    Settings.setEditarFuncionario(Settings.EditarFuncionario);
-                    tableViewFuncionarios.refresh();
-                    alertEditFuncionario.setHeaderText("Ediçao realizada com sucesso");
-                    alertEditFuncionario.setContentText("| Clique no botão para continuar ->");
-                    alertEditFuncionario.showAndWait();
-                    Settings.setEditarFuncionario(null);
-                } else{
-                    Alert alertEditFunCancel = new Alert(Alert.AlertType.INFORMATION);
-                    alertEditFunCancel.setTitle("INFORMAÇÃO!!!");
-                    alertEditFunCancel.setHeaderText("Operação cancelada com sucesso");
-                    alertEditFunCancel.showAndWait();
-                }
-            }else {
-                Alert alertIDFunNotFound = new Alert(Alert.AlertType.ERROR);
-                alertIDFunNotFound.setContentText("ERRO");
-                alertIDFunNotFound.setHeaderText("ID nao encontrado");
-                alertIDFunNotFound.setContentText("Clique no botao para continuar");
-                alertIDFunNotFound.showAndWait();
-            }
-
-        }
-    }
-
-    public void buttonDeleteFunOnAction(ActionEvent actionEvent) {
-        if (funcionariosId.getText().isEmpty() || funcionariosFirstName.getText().isEmpty() || funcionariosSecondName.getText().isEmpty()|| funcionarioAge.getText().isEmpty() ||funcionarioCargo.getSelectionModel().getSelectedItem() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERRO");
-            alert.setHeaderText("Nao selecionou nenhum item,por favor selecione um item!!!");
-            alert.setContentText("Clique no botão para continuar");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("ELIMINAR");
-            alert.setHeaderText("ID: " + funcionariosId.getText() + "\nPrimeiro nome: " +  funcionariosFirstName.getText() + "\nSegundo nome: " + funcionariosSecondName.getText() + "\nIdade: " + funcionarioAge.getText() + "\ncargo: " + funcionarioCargo.getSelectionModel().getSelectedItem());
-            alert.setContentText("Deseja realemte eliminar?");
-            ButtonType ButtonSim = new ButtonType("Sim");
-            ButtonType ButtonNao = new ButtonType("Não");
-            alert.getButtonTypes().setAll(ButtonSim, ButtonNao);
-            Optional<ButtonType> choose = alert.showAndWait();
-
-            if (choose.get() == ButtonSim) {
-                int newF = Integer.parseInt(funcionariosId.getText());
-                for (Funcionario f : Settings.listaFuncionarios) {
-                    if (f.getId() == newF) {
-                        Settings.getListaFuncionarios().remove(f);
-                        Alert alertRmFunQuartos = new Alert(Alert.AlertType.INFORMATION);
-                        alertRmFunQuartos.setTitle("INFORMACÇAO!!!");
-                        alertRmFunQuartos.setHeaderText("O seu funcionario foi eliminado");
-                        alertRmFunQuartos.setContentText("| Clique no botão para continuar |");
-                        alertRmFunQuartos.showAndWait();
-                        break;
-                    }
-                }
-            } else {
-                Alert alertRmFunCancel = new Alert(Alert.AlertType.INFORMATION);
-                alertRmFunCancel.setTitle("INFORMAÇAO!!!");
-                alertRmFunCancel.setHeaderText("Pedido cancelado com sucesso!!!");
-                alertRmFunCancel.setContentText("Clique no botao para continuar.");
-                alertRmFunCancel.showAndWait();
-            }
-
-        }
-    }
-
     public void buttonaddClientOnAction(ActionEvent actionEvent) {
         if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || ClientCheckOut.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -552,70 +462,16 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    public void buttonEditClientOnAction(ActionEvent actionEvent) {
-        if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || ClientCheckOut.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERRO");
-            alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
-            alert.setContentText("Clique no botao para tentar novamente!");
-            alert.showAndWait();
-        } else {
-            //Settings.EditarQuarto = null;
-            int newClient = Integer.parseInt(clientID.getText());
-            for (Cliente c : Settings.getListaClientes()) {
-                if (c.getIdClientes() == newClient) {
-                    Settings.EditarCliente = c;
-                    break;
-                }
-            }
-            if (Settings.EditarCliente != null){
-                Settings.EditarCliente.setNome(ClienteNome.getText());
-                Settings.EditarCliente.setTelefone(ClienteTelefone.getText());
-                Settings.EditarCliente.setCheckIn(ClientCheckIn.getText());
-                Settings.EditarCliente.setCheckOut(ClientCheckOut.getText());
 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Editar Quarto");
-                alert.setHeaderText("deseja realmente editar?");
-                alert.setContentText("Clique no botao para continuar");
-                ButtonType ButtonSim = new ButtonType("Sim");
-                ButtonType ButtonNao = new ButtonType("Não");
-                alert.getButtonTypes().setAll(ButtonSim,ButtonNao);
-                Alert alertEditRoom = new Alert(Alert.AlertType.INFORMATION);
-                alertEditRoom.setTitle("CONFIRMAÇÃO!!!");
-                alertEditRoom.setHeaderText(null);
-                Optional<ButtonType> choose = alert.showAndWait();
-                if(choose.get() == ButtonSim){
-                    for(Cliente cliente: Settings.getListaClientes()) {
-                        if (cliente.getIdClientes() == Settings.getEditarCliente().getIdClientes()) {
-                            int index = Settings.getListaClientes().indexOf(cliente);
-                            Settings.getListaClientes().set(index, Settings.getEditarCliente());
-                            break;
-                        }
-                    }
-                    Settings.setEditarCliente(Settings.EditarCliente);
-                    tableViewQuartos.refresh();
-                    alertEditRoom.setHeaderText("Ediçao realizada com sucesso");
-                    alertEditRoom.setContentText("| Clique no botão para continuar ->");
-                    alertEditRoom.showAndWait();
-                    Settings.setEditarQuarto(null);
-                } else{
-                    Alert alertEditCancel = new Alert(Alert.AlertType.INFORMATION);
-                    alertEditCancel.setTitle("INFORMAÇÃO!!!");
-                    alertEditCancel.setHeaderText("Operação cancelada com sucesso");
-                    alertEditCancel.showAndWait();
-                }
-            }else {
-                Alert alertIDNotFound = new Alert(Alert.AlertType.ERROR);
-                alertIDNotFound.setContentText("ERRO");
-                alertIDNotFound.setHeaderText("Numero do quarto nao encontra    do");
-                alertIDNotFound.setContentText("Clique no botao para continuar");
-                alertIDNotFound.showAndWait();
-            }
+//----------------------------------------------------------------------------------------------------------------------
 
-
-        }
+//----------------------------------------------------------------------------------------------------------------------
+    public void ButtonSairOnAction(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnSair.getScene().getWindow();
+        stage.close();
     }
+
+//----------------------------------------------------------------------------------------------------------------------
 
     public void buttonClearClientOnAction(ActionEvent actionEvent) {
         Settings.listaClientes.clear();
@@ -625,50 +481,15 @@ public class PrincipalController implements Initializable {
         Settings.listaFuncionarios.clear();
     }
 
-    public void buttonDeleteClientOnAction(ActionEvent actionEvent) {
-        if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || ClientCheckOut.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERRO");
-            alert.setHeaderText("Nao selecionou nenhum item,por favor selecione um item!!!");
-            alert.setContentText("Clique no botão para continuar");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("ELIMINAR");
-            alert.setHeaderText("ID cliente: " + clientID.getText() + "\nTelefone: " + ClienteNome.getText() + "\n:Nome " + ClienteNome.getText() + "\nCheck-IN: " + ClientCheckIn.getText() + "\nCheck-OUT:" + ClientCheckOut.getText());
-            alert.setContentText("Deseja realemte elimiar?");
-            ButtonType ButtonSim = new ButtonType("Sim");
-            ButtonType ButtonNao = new ButtonType("Não");
-            alert.getButtonTypes().setAll(ButtonSim, ButtonNao);
-            Optional<ButtonType> choose = alert.showAndWait();
-
-            if (choose.get() == ButtonSim) {
-                int newClient = Integer.parseInt(clientID.getText());
-                for (Cliente cliente : Settings.listaClientes) {
-                    if (cliente.getIdClientes() == newClient) {
-                        Settings.getListaClientes().remove(cliente);
-                        Alert alertRmQuartos = new Alert(Alert.AlertType.INFORMATION);
-                        alertRmQuartos.setTitle("INFORMACÇAO!!!");
-                        alertRmQuartos.setHeaderText("O seu quarto foi eliminado");
-                        alertRmQuartos.setContentText("| Clique no botão para continuar |");
-                        alertRmQuartos.showAndWait();
-                        break;
-                    }
-                }
-            } else {
-                Alert alertRmCancel = new Alert(Alert.AlertType.INFORMATION);
-                alertRmCancel.setTitle("INFORMAÇAO!!!");
-                alertRmCancel.setHeaderText("Pedido cancelado com sucesso!!!");
-                alertRmCancel.setContentText("Clique no botao para continuar.");
-                alertRmCancel.showAndWait();
-            }
-
-        }
-    }
-
     public void buttonClearOnAction(ActionEvent actionEvent) {
         Settings.listaQuartos.clear();
     }
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------------------
+
 
     public void buttonEditOnAction(ActionEvent actionEvent) {
         if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
@@ -734,11 +555,137 @@ public class PrincipalController implements Initializable {
         }
 
     }
+    public void buttonEditFunOnAction(ActionEvent actionEvent) {
+        if (funcionariosId.getText().isEmpty() || funcionariosFirstName.getText().isEmpty() || funcionariosSecondName.getText().isEmpty()|| funcionarioAge.getText().isEmpty() ||funcionarioCargo.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
+            alert.setContentText("Clique no botao para tentar novamente!");
+            alert.showAndWait();
+        } else {
+            //Settings.EditarQuarto = null;
+            int newFuncionario = Integer.parseInt(funcionariosId.getText());
+            for (Funcionario f : Settings.getListaFuncionarios()) {
+                if (f.getId() == newFuncionario) {
+                    Settings.EditarFuncionario = f;
+                    break;
+                }
+            }
+            if (Settings.EditarFuncionario != null){
+                Settings.EditarFuncionario.setPrimeiroNome(funcionariosFirstName.getText());
+                Settings.EditarFuncionario.setSegundoNome(funcionariosSecondName.getText());
+                Settings.EditarFuncionario.setIdade(Integer.parseInt(funcionarioAge.getText()));
+                Settings.EditarFuncionario.setCargo((String) funcionarioCargo.getSelectionModel().getSelectedItem());
 
-    public void ButtonSairOnAction(ActionEvent actionEvent) {
-        Stage stage = (Stage) btnSair.getScene().getWindow();
-        stage.close();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Editar Funcionario");
+                alert.setHeaderText("deseja realmente editar?");
+                alert.setContentText("Clique no botao para continuar");
+                ButtonType ButtonSim = new ButtonType("Sim");
+                ButtonType ButtonNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(ButtonSim,ButtonNao);
+                Alert alertEditFuncionario = new Alert(Alert.AlertType.INFORMATION);
+                alertEditFuncionario.setTitle("CONFIRMAÇÃO!!!");
+                alertEditFuncionario.setHeaderText(null);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if(choose.get() == ButtonSim){
+                    for(Funcionario fun: Settings.getListaFuncionarios()) {
+                        if (fun.getId() == Settings.getEditarFuncionario().getId()){
+                            int index = Settings.getListaFuncionarios().indexOf(fun);
+                            Settings.getListaFuncionarios().set(index, Settings.getEditarFuncionario());
+                            break;
+                        }
+                    }
+                    Settings.setEditarFuncionario(Settings.EditarFuncionario);
+                    tableViewFuncionarios.refresh();
+                    alertEditFuncionario.setHeaderText("Ediçao realizada com sucesso");
+                    alertEditFuncionario.setContentText("| Clique no botão para continuar ->");
+                    alertEditFuncionario.showAndWait();
+                    Settings.setEditarFuncionario(null);
+                } else{
+                    Alert alertEditFunCancel = new Alert(Alert.AlertType.INFORMATION);
+                    alertEditFunCancel.setTitle("INFORMAÇÃO!!!");
+                    alertEditFunCancel.setHeaderText("Operação cancelada com sucesso");
+                    alertEditFunCancel.showAndWait();
+                }
+            }else {
+                Alert alertIDFunNotFound = new Alert(Alert.AlertType.ERROR);
+                alertIDFunNotFound.setContentText("ERRO");
+                alertIDFunNotFound.setHeaderText("ID nao encontrado");
+                alertIDFunNotFound.setContentText("Clique no botao para continuar");
+                alertIDFunNotFound.showAndWait();
+            }
+
+        }
     }
+    public void buttonEditClientOnAction(ActionEvent actionEvent) {
+        if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || ClientCheckOut.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
+            alert.setContentText("Clique no botao para tentar novamente!");
+            alert.showAndWait();
+        } else {
+            //Settings.EditarQuarto = null;
+            int newClient = Integer.parseInt(clientID.getText());
+            for (Cliente c : Settings.getListaClientes()) {
+                if (c.getIdClientes() == newClient) {
+                    Settings.EditarCliente = c;
+                    break;
+                }
+            }
+            if (Settings.EditarCliente != null){
+                Settings.EditarCliente.setNome(ClienteNome.getText());
+                Settings.EditarCliente.setTelefone(ClienteTelefone.getText());
+                Settings.EditarCliente.setCheckIn(ClientCheckIn.getText());
+                Settings.EditarCliente.setCheckOut(ClientCheckOut.getText());
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Editar Quarto");
+                alert.setHeaderText("deseja realmente editar?");
+                alert.setContentText("Clique no botao para continuar");
+                ButtonType ButtonSim = new ButtonType("Sim");
+                ButtonType ButtonNao = new ButtonType("Não");
+                alert.getButtonTypes().setAll(ButtonSim,ButtonNao);
+                Alert alertEditRoom = new Alert(Alert.AlertType.INFORMATION);
+                alertEditRoom.setTitle("CONFIRMAÇÃO!!!");
+                alertEditRoom.setHeaderText(null);
+                Optional<ButtonType> choose = alert.showAndWait();
+                if(choose.get() == ButtonSim){
+                    for(Cliente cliente: Settings.getListaClientes()) {
+                        if (cliente.getIdClientes() == Settings.getEditarCliente().getIdClientes()) {
+                            int index = Settings.getListaClientes().indexOf(cliente);
+                            Settings.getListaClientes().set(index, Settings.getEditarCliente());
+                            break;
+                        }
+                    }
+                    Settings.setEditarCliente(Settings.EditarCliente);
+                    tableViewQuartos.refresh();
+                    alertEditRoom.setHeaderText("Ediçao realizada com sucesso");
+                    alertEditRoom.setContentText("| Clique no botão para continuar ->");
+                    alertEditRoom.showAndWait();
+                    Settings.setEditarQuarto(null);
+                } else{
+                    Alert alertEditCancel = new Alert(Alert.AlertType.INFORMATION);
+                    alertEditCancel.setTitle("INFORMAÇÃO!!!");
+                    alertEditCancel.setHeaderText("Operação cancelada com sucesso");
+                    alertEditCancel.showAndWait();
+                }
+            }else {
+                Alert alertIDNotFound = new Alert(Alert.AlertType.ERROR);
+                alertIDNotFound.setContentText("ERRO");
+                alertIDNotFound.setHeaderText("Numero do quarto nao encontra    do");
+                alertIDNotFound.setContentText("Clique no botao para continuar");
+                alertIDNotFound.showAndWait();
+            }
+
+
+        }
+    }
+
+
+
+//----------------------------------------------------------------------------------------------------------------------
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
@@ -780,7 +727,116 @@ public class PrincipalController implements Initializable {
 
         }
     }
+    public void buttonDeleteFunOnAction(ActionEvent actionEvent) {
+        if (funcionariosId.getText().isEmpty() || funcionariosFirstName.getText().isEmpty() || funcionariosSecondName.getText().isEmpty()|| funcionarioAge.getText().isEmpty() ||funcionarioCargo.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Nao selecionou nenhum item,por favor selecione um item!!!");
+            alert.setContentText("Clique no botão para continuar");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("ELIMINAR");
+            alert.setHeaderText("ID: " + funcionariosId.getText() + "\nPrimeiro nome: " +  funcionariosFirstName.getText() + "\nSegundo nome: " + funcionariosSecondName.getText() + "\nIdade: " + funcionarioAge.getText() + "\ncargo: " + funcionarioCargo.getSelectionModel().getSelectedItem());
+            alert.setContentText("Deseja realemte eliminar?");
+            ButtonType ButtonSim = new ButtonType("Sim");
+            ButtonType ButtonNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(ButtonSim, ButtonNao);
+            Optional<ButtonType> choose = alert.showAndWait();
 
+            if (choose.get() == ButtonSim) {
+                int newF = Integer.parseInt(funcionariosId.getText());
+                for (Funcionario f : Settings.listaFuncionarios) {
+                    if (f.getId() == newF) {
+                        Settings.getListaFuncionarios().remove(f);
+                        Alert alertRmFunQuartos = new Alert(Alert.AlertType.INFORMATION);
+                        alertRmFunQuartos.setTitle("INFORMACÇAO!!!");
+                        alertRmFunQuartos.setHeaderText("O seu funcionario foi eliminado");
+                        alertRmFunQuartos.setContentText("| Clique no botão para continuar |");
+                        alertRmFunQuartos.showAndWait();
+                        break;
+                    }
+                }
+            } else {
+                Alert alertRmFunCancel = new Alert(Alert.AlertType.INFORMATION);
+                alertRmFunCancel.setTitle("INFORMAÇAO!!!");
+                alertRmFunCancel.setHeaderText("Pedido cancelado com sucesso!!!");
+                alertRmFunCancel.setContentText("Clique no botao para continuar.");
+                alertRmFunCancel.showAndWait();
+            }
+
+        }
+    }
+
+    public void buttonDeleteClientOnAction(ActionEvent actionEvent) {
+        if (clientID.getText().isEmpty() || ClienteNome.getText().isEmpty() || ClienteTelefone.getText().isEmpty()|| ClientCheckIn.getText().isEmpty() || ClientCheckOut.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRO");
+            alert.setHeaderText("Nao selecionou nenhum item,por favor selecione um item!!!");
+            alert.setContentText("Clique no botão para continuar");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("ELIMINAR");
+            alert.setHeaderText("ID cliente: " + clientID.getText() + "\nTelefone: " + ClienteNome.getText() + "\n:Nome " + ClienteNome.getText() + "\nCheck-IN: " + ClientCheckIn.getText() + "\nCheck-OUT:" + ClientCheckOut.getText());
+            alert.setContentText("Deseja realemte elimiar?");
+            ButtonType ButtonSim = new ButtonType("Sim");
+            ButtonType ButtonNao = new ButtonType("Não");
+            alert.getButtonTypes().setAll(ButtonSim, ButtonNao);
+            Optional<ButtonType> choose = alert.showAndWait();
+
+            if (choose.get() == ButtonSim) {
+                int newClient = Integer.parseInt(clientID.getText());
+                for (Cliente cliente : Settings.listaClientes) {
+                    if (cliente.getIdClientes() == newClient) {
+                        Settings.getListaClientes().remove(cliente);
+                        Alert alertRmQuartos = new Alert(Alert.AlertType.INFORMATION);
+                        alertRmQuartos.setTitle("INFORMACÇAO!!!");
+                        alertRmQuartos.setHeaderText("O seu quarto foi eliminado");
+                        alertRmQuartos.setContentText("| Clique no botão para continuar |");
+                        alertRmQuartos.showAndWait();
+                        break;
+                    }
+                }
+            } else {
+                Alert alertRmCancel = new Alert(Alert.AlertType.INFORMATION);
+                alertRmCancel.setTitle("INFORMAÇAO!!!");
+                alertRmCancel.setHeaderText("Pedido cancelado com sucesso!!!");
+                alertRmCancel.setContentText("Clique no botao para continuar.");
+                alertRmCancel.showAndWait();
+            }
+
+        }
+    }
+
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
+    public void procurarClientes(KeyEvent keyEvent){
+        FilteredList<Cliente> filter = new FilteredList<>(Settings.listaClientes, e -> true);
+
+        searchClientes.textProperty().addListener((Observable, oldValue, newValue) ->{
+
+            filter.setPredicate(predicateClient ->{
+                if(newValue == null && newValue.isEmpty()){
+                    return true;
+                }
+                String ProcurarC = newValue.toLowerCase();
+                if (String.valueOf(predicateClient.getIdClientes()).contains(ProcurarC)){
+                    return true;
+                }else if (predicateClient.getNome().toLowerCase().contains(ProcurarC)) {
+                    return true;
+                } else if (predicateClient.getTelefone().toLowerCase().contains(ProcurarC)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Cliente> sortList =  new SortedList<>(filter);
+        sortList.comparatorProperty().bind(ClientTableView.comparatorProperty());
+        ClientTableView.setItems(sortList);
+    }
     public void procurarQuarto(KeyEvent keyEvent) {
         FilteredList<QuartosDisponiveis> filter = new FilteredList<>(Settings.listaQuartos, e -> true);
 
@@ -808,7 +864,6 @@ public class PrincipalController implements Initializable {
         sortList.comparatorProperty().bind(tableViewQuartos.comparatorProperty());
         tableViewQuartos.setItems(sortList);
     }
-
     public void procurarFuncionario(KeyEvent keyEvent){
         FilteredList<Funcionario> filter = new FilteredList<>(Settings.listaFuncionarios, e -> true);
 
@@ -839,127 +894,171 @@ public class PrincipalController implements Initializable {
         tableViewFuncionarios.setItems(sortList);
     }
 
-    public void procurarClientes(KeyEvent keyEvent){
-        FilteredList<Cliente> filter = new FilteredList<>(Settings.listaClientes, e -> true);
+//----------------------------------------------------------------------------------------------------------------------
 
-        searchClientes.textProperty().addListener((Observable, oldValue, newValue) ->{
+//----------------------------------------------------------------------------------------------------------------------
+public void buttonQDForOnAction(ActionEvent actionEvent) {
+    QuartosDisponiveisForm.setVisible(true);
+    FuncionariosForm.setVisible(false);
+    ClientForm.setVisible(false);
+    aboutForm.setVisible(false);
 
-            filter.setPredicate(predicateClient ->{
-                if(newValue == null && newValue.isEmpty()){
-                    return true;
-                }
-                String ProcurarC = newValue.toLowerCase();
-                if (String.valueOf(predicateClient.getIdClientes()).contains(ProcurarC)){
-                    return true;
-                }else if (predicateClient.getNome().toLowerCase().contains(ProcurarC)) {
-                    return true;
-                } else if (predicateClient.getTelefone().toLowerCase().contains(ProcurarC)) {
-                    return true;
-                }
-                return false;
-            });
-        });
-        SortedList<Cliente> sortList =  new SortedList<>(filter);
-        sortList.comparatorProperty().bind(ClientTableView.comparatorProperty());
-        ClientTableView.setItems(sortList);
+}
+
+    public void buttonClientFormOnAaction(ActionEvent actionEvent) {
+        QuartosDisponiveisForm.setVisible(false);
+        FuncionariosForm.setVisible(false);
+        ClientForm.setVisible(true);
+        aboutForm.setVisible(false);
     }
 
+    public void buttonFunFormOnAction(ActionEvent actionEvent) {
+        QuartosDisponiveisForm.setVisible(false);
+        FuncionariosForm.setVisible(true);
+        ClientForm.setVisible(false);
+        aboutForm.setVisible(false);
+    }
 
+    public void buttonAcercaDeOnAction(ActionEvent actionEvent) {
+        QuartosDisponiveisForm.setVisible(false);
+        FuncionariosForm.setVisible(false);
+        ClientForm.setVisible(false);
+        aboutForm.setVisible(true);
+    }
 
 
 //----------------------------------------------------------------------------------------------------------------------
 
+//----------------------------------------------------------------------------------------------------------------------
 
-
-
-    public void exitApplication(ActionEvent actionEvent) {
-    }
-
-    public void menuSairApp(MouseEvent mouseEvent) {
-    }
-
-    public void btnSairEntered(MouseEvent mouseEvent) {
-    }
 
     public void btnRooomEntered(MouseEvent mouseEvent) {
+        QuartosDisponiveisBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnClientEntered(MouseEvent mouseEvent) {
+        ClientBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnClientExited(MouseEvent mouseEvent) {
+        ClientBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnFuncionariosEntered(MouseEvent mouseEvent) {
+        funcionarioBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnAcercaDeEntered(MouseEvent mouseEvent) {
+        AcercaDeBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnAcercaDeExited(MouseEvent mouseEvent) {
+        AcercaDeBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
-    public void btnSairExit(MouseEvent mouseEvent) {
-    }
 
     public void btnFuncionariosExited(MouseEvent mouseEvent) {
+        funcionarioBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
+
     public void btnRoomExited(MouseEvent mouseEvent) {
+        QuartosDisponiveisBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnAddEntered(MouseEvent mouseEvent) {
+        addBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnAddExited(MouseEvent mouseEvent) {
+        addBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnUpdateEntered(MouseEvent mouseEvent) {
+        updateBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnUpdateExit(MouseEvent mouseEvent) {
+        updateBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnClearExited(MouseEvent mouseEvent) {
+        clearBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnDeleteEntered(MouseEvent mouseEvent) {
+        deleteBn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnDeleteExited(MouseEvent mouseEvent) {
+        deleteBn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
-
-    public void btnCheckInEntered(MouseEvent mouseEvent) {
-    }
-
-    public void btnCheckInExit(MouseEvent mouseEvent) {
-    }
-
     public void btnClearEntered(MouseEvent mouseEvent) {
+        clearBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnAddFunEntered(MouseEvent mouseEvent) {
+        addFunBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
+
     public void btnAddFunExited(MouseEvent mouseEvent) {
+        addFunBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnEditFunEntered(MouseEvent mouseEvent) {
+        editFunBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnEdtFunExited(MouseEvent mouseEvent) {
+        editFunBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnClearFunEntered(MouseEvent mouseEvent) {
+        ClearFunBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
 
     public void btnClearFunExited(MouseEvent mouseEvent) {
+        ClearFunBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnDelFunExited(MouseEvent mouseEvent) {
+        editFunBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     public void btnDelFunEntered(MouseEvent mouseEvent) {
+        editFunBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
+    }
+    public void btnAddClientEntered(MouseEvent mouseEvent) {
+        addClientBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
+    }
+
+    public void btnAddClientExited(MouseEvent mouseEvent) {
+        addClientBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
+    }
+
+    public void btnEditClientEntered(MouseEvent mouseEvent) {
+        editClientBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
+    }
+
+    public void btnEditClientExited(MouseEvent mouseEvent) {
+        editClientBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
+    }
+
+    public void btnClearClientEntered(MouseEvent mouseEvent) {
+        clearClientBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
+    }
+
+    public void btnClearClientExited(MouseEvent mouseEvent) {
+        clearClientBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
+    }
+
+    public void btnDeleteClientEntered(MouseEvent mouseEvent) {
+        deleteClientBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
+    }
+
+    public void btnDeleteClientExited(MouseEvent mouseEvent) {
+        deleteClientBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
     @Override
@@ -972,35 +1071,5 @@ public class PrincipalController implements Initializable {
         associarClientes();
 
 
-    }
-
-
-    public void buttonQDForOnAction(ActionEvent actionEvent) {
-        QuartosDisponiveisForm.setVisible(true);
-        FuncionariosForm.setVisible(false);
-        ClientForm.setVisible(false);
-        aboutForm.setVisible(false);
-
-    }
-
-    public void buttonClientFormOnAaction(ActionEvent actionEvent) {
-        QuartosDisponiveisForm.setVisible(false);
-        FuncionariosForm.setVisible(true);
-        ClientForm.setVisible(false);
-        aboutForm.setVisible(false);
-    }
-
-    public void buttonFunFormOnAction(ActionEvent actionEvent) {
-        QuartosDisponiveisForm.setVisible(false);
-        FuncionariosForm.setVisible(false);
-        ClientForm.setVisible(true);
-        aboutForm.setVisible(false);
-    }
-
-    public void buttonAcercaDeOnAction(ActionEvent actionEvent) {
-        QuartosDisponiveisForm.setVisible(false);
-        FuncionariosForm.setVisible(false);
-        ClientForm.setVisible(false);
-        aboutForm.setVisible(true);
     }
 }

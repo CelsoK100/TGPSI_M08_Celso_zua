@@ -57,7 +57,7 @@
    <center>
       <AnchorPane prefHeight="400.0" prefWidth="332.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutY="82.0" prefHeight="32.0" prefWidth="292.0" text="Login">
+            <Label alignment="CENTER" layoutY="82.0" prefHeight="32.0" prefWidth="292.0" text="LOGIN">
                <font>
                   <Font name="Comic Sans MS Bold" size="14.0" />
                </font>
@@ -65,24 +65,24 @@
                   <InnerShadow />
                </effect>
             </Label>
-            <TextField fx:id="nameTxt" layoutX="98.0" layoutY="144.0" />
-            <PasswordField fx:id="passPf" layoutX="98.0" layoutY="188.0" />
-            <Button fx:id="buttonLogin" layoutX="31.0" layoutY="263.0" mnemonicParsing="false" onAction="#buttonLoginOnAction" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #263F73;" text="Login" textFill="WHITE">
+            <TextField fx:id="nameTxt" layoutX="98.0" layoutY="144.0" style="-fx-border-width: 0.0.0.8; -fx-border-color: #444857; -fx-border-width: 1.5; -fx-background-radius: 10; -fx-border-radius: 10;" />
+            <PasswordField fx:id="passPf" layoutX="98.0" layoutY="188.0" style="-fx-border-width: 0.0.0.8; -fx-border-color: #444857; -fx-border-width: 1.5; -fx-background-radius: 10; -fx-border-radius: 10;" />
+            <Button fx:id="buttonLogin" layoutX="38.0" layoutY="243.0" mnemonicParsing="false" onAction="#buttonLoginOnAction" prefHeight="24.0" prefWidth="217.0" style="-fx-background-color: #263F73; -fx-background-radius: 10; -fx-border-radius: 10;" text="Login" textFill="WHITE">
                <font>
                   <Font name="Comic Sans MS" size="16.0" />
                </font>
             </Button>
-            <Label layoutX="33.0" layoutY="140.0" prefHeight="32.0" prefWidth="44.0" text="Nome" textFill="#070707">
+            <Label layoutX="33.0" layoutY="140.0" prefHeight="32.0" prefWidth="44.0" text="Nome:" textFill="#070707">
                <font>
                   <Font name="Comic Sans MS Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="33.0" layoutY="184.0" prefHeight="32.0" prefWidth="43.0" text="Pass" textFill="#070707">
+            <Label layoutX="33.0" layoutY="184.0" prefHeight="32.0" prefWidth="43.0" text="Pass:" textFill="#070707">
                <font>
                   <Font name="Comic Sans MS Bold" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="buttonCancel" layoutX="30.0" layoutY="314.0" mnemonicParsing="false" onAction="#buttonCancelOnAction" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #263F73;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="buttonCancel" layoutX="39.0" layoutY="296.0" mnemonicParsing="false" onAction="#buttonCancelOnAction" prefHeight="34.0" prefWidth="218.0" style="-fx-background-color: #263F73; -fx-background-radius: 10; -fx-border-radius: 10;" text="Cancelar" textFill="WHITE">
                <font>
                   <Font name="Comic Sans MS" size="16.0" />
                </font>

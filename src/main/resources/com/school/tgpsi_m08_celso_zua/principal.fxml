@@ -58,7 +58,7 @@
                                           <Font name="Comic Sans MS" size="24.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="QuartosDisponiveisBtn" layoutX="19.0" layoutY="232.0" mnemonicParsing="false" onAction="#buttonQDForOnAction" onMouseEntered="#btnRooomEntered" onMouseExited="#btnRoomExited" prefHeight="37.0" prefWidth="205.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10;" text="Quartos Disponiveis" textFill="WHITE">
+                                    <Button fx:id="QuartosDisponiveisBtn" layoutX="19.0" layoutY="232.0" mnemonicParsing="false" onAction="#buttonQDForOnAction" onMouseEntered="#btnRooomEntered" onMouseExited="#btnRoomExited" prefHeight="37.0" prefWidth="205.0" style="-fx-background-color: #263F73; -fx-border-color: fff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Quartos Disponiveis" textFill="WHITE">
                                        <font>
                                           <Font name="Comic Sans MS Bold" size="18.0" />
                                        </font>
@@ -83,8 +83,15 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="btnSair" layoutX="29.0" layoutY="470.0" mnemonicParsing="false" onAction="#ButtonSairOnAction" prefHeight="29.0" prefWidth="38.0" style="-fx-background-color: transparent; -fx-font-family: tahoma; -fx-cursor: hand;" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="470.0" />
-                                    <Label layoutX="105.0" layoutY="480.0" prefHeight="33.0" prefWidth="61.0" text="SAIR" textFill="WHITE">
+                                    <Button fx:id="btnSair" layoutX="29.0" layoutY="470.0" mnemonicParsing="false" onAction="#ButtonSairOnAction" prefHeight="29.0" prefWidth="38.0" style="-fx-background-color: transparent; -fx-font-family: tahoma; -fx-cursor: hand;" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="144.0" AnchorPane.topAnchor="470.0">
+                                       <graphic>
+                                          <ImageView fitHeight="84.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@imagem/png-transparent-black-arrow-inside-box-logo-computer-icons-scalable-graphics-desktop-exit-icon-close-miscellaneous-angle-text-removebg-preview.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></Button>
+                                    <Label layoutX="96.0" layoutY="476.0" prefHeight="33.0" prefWidth="61.0" text="SAIR" textFill="WHITE">
                                        <font>
                                           <Font name="Comic Sans MS Bold" size="18.0" />
                                        </font>
@@ -102,11 +109,6 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <ImageView fitHeight="84.0" fitWidth="63.0" layoutX="37.0" layoutY="476.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@imagem/png-transparent-black-arrow-inside-box-logo-computer-icons-scalable-graphics-desktop-exit-icon-close-miscellaneous-angle-text-removebg-preview.png" />
-                                       </image>
-                                    </ImageView>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -115,7 +117,7 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <AnchorPane fx:id="QuartosDisponiveisForm" prefHeight="538.0" prefWidth="901.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane fx:id="QuartosDisponiveisForm" prefHeight="538.0" prefWidth="901.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <AnchorPane layoutX="14.0" layoutY="13.0" prefHeight="544.0" prefWidth="310.0" style="-fx-background-color: #fff; -fx-background-radius: 10;">
                                        <effect>
@@ -186,14 +188,6 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="chekInBtn" layoutX="48.0" layoutY="394.0" mnemonicParsing="false" onMouseEntered="#btnCheckInEntered" onMouseExited="#btnCheckInExit" prefHeight="42.0" prefWidth="214.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Check-In" textFill="WHITE">
-                                             <font>
-                                                <Font name="Comic Sans MS Bold" size="13.0" />
-                                             </font>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="336.0" layoutY="14.0" prefHeight="545.0" prefWidth="567.0" style="-fx-background-color: #fff; -fx-background-radius: 10;">
@@ -201,12 +195,12 @@
                                           <DropShadow />
                                        </effect>
                                        <children>
-                                          <TableView fx:id="tableViewQuartos" layoutX="9.0" layoutY="45.0" onMouseClicked="#verQuartos" prefHeight="485.0" prefWidth="550.0" style="-fx-background-color: #263F73; -fx-padding: 2; -fx-border-color: #263F73; -fx-border-radius: 8; -fx-background-radius: 10;">
+                                          <TableView fx:id="tableViewQuartos" layoutX="9.0" layoutY="45.0" onMouseClicked="#verQuartos" prefHeight="485.0" prefWidth="550.0" style="-fx-background-color: #0367fc; -fx-padding: 2; -fx-border-color: #0367fc; -fx-border-radius: 8; -fx-background-radius: 10;">
                                             <columns>
-                                              <TableColumn fx:id="roomNumberCollum" prefWidth="114.0" style="-fx-background-radius: 8; -fx-background-color: #263F73; -fx-border-color: #263F73; -fx-border-width: 8;" text="Quartos" />
-                                              <TableColumn fx:id="roomTypeCollum" prefWidth="147.0" style="-fx-background-radius: 8;" text="Tipo de quarto" />
-                                                <TableColumn fx:id="roomStatusCollum" prefWidth="136.0" style="-fx-background-radius: 8;" text="Status" />
-                                                <TableColumn fx:id="roomPriceCollum" prefWidth="146.0" style="-fx-background-radius: 8;" text="preço" />
+                                              <TableColumn fx:id="roomNumberCollum" prefWidth="114.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="Quartos" />
+                                              <TableColumn fx:id="roomTypeCollum" prefWidth="147.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="Tipo de quarto" />
+                                                <TableColumn fx:id="roomStatusCollum" prefWidth="136.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="Status" />
+                                                <TableColumn fx:id="roomPriceCollum" prefWidth="150.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="preço" />
                                             </columns>
                                              <effect>
                                                 <DropShadow />
@@ -233,43 +227,43 @@
                                           <DropShadow />
                                        </effect>
                                        <children>
-                                          <Label layoutX="25.0" layoutY="78.0" text="Primeiro Nome:">
+                                          <Label layoutX="26.0" layoutY="120.0" text="Primeiro Nome:">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="25.0" layoutY="115.0" text="Segundo Nome:">
+                                          <Label layoutX="32.0" layoutY="163.0" text="Segundo Nome:">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="79.0" layoutY="152.0" text="Idade:">
+                                          <Label layoutX="75.0" layoutY="206.0" text="Idade:">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="77.0" layoutY="195.0" text="Cargo:">
+                                          <Label layoutX="76.0" layoutY="248.0" text="Cargo:">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="funcionarioCargo" layoutX="128.0" layoutY="190.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-width: 1.5; -fx-background-radius: 5; -fx-border-color: #444857;" />
-                                          <TextField fx:id="funcionariosFirstName" layoutX="128.0" layoutY="74.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                          <ComboBox fx:id="funcionarioCargo" layoutX="128.0" layoutY="243.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-border-width: 1.5; -fx-background-radius: 5; -fx-border-color: #444857;" />
+                                          <TextField fx:id="funcionariosFirstName" layoutX="128.0" layoutY="116.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="funcionariosSecondName" layoutX="128.0" layoutY="111.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                          <TextField fx:id="funcionariosSecondName" layoutX="128.0" layoutY="158.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="funcionarioAge" layoutX="122.0" layoutY="148.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                          <TextField fx:id="funcionarioAge" layoutX="128.0" layoutY="202.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
                                           </TextField>
-                                          <Button fx:id="addFunBtn" layoutX="34.0" layoutY="256.0" mnemonicParsing="false" onAction="#buttonaddFunOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Adicionar" textFill="WHITE">
+                                          <Button fx:id="addFunBtn" layoutX="34.0" layoutY="294.0" mnemonicParsing="false" onAction="#buttonaddFunOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Adicionar" textFill="WHITE">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
@@ -277,7 +271,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="editFunBtn" layoutX="167.0" layoutY="256.0" mnemonicParsing="false" onAction="#buttonEditFunOnAction" onMouseEntered="#btnEditFunEntered" onMouseExited="#btnEdtFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Editar" textFill="WHITE">
+                                          <Button fx:id="editFunBtn" layoutX="156.0" layoutY="294.0" mnemonicParsing="false" onAction="#buttonEditFunOnAction" onMouseEntered="#btnEditFunEntered" onMouseExited="#btnEdtFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Editar" textFill="WHITE">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
@@ -285,7 +279,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="ClearFunBtn" layoutX="34.0" layoutY="329.0" mnemonicParsing="false" onAction="#buttonClearFunOnAction" onMouseEntered="#btnClearFunEntered" onMouseExited="#btnClearFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Limpar" textFill="WHITE">
+                                          <Button fx:id="ClearFunBtn" layoutX="34.0" layoutY="354.0" mnemonicParsing="false" onAction="#buttonClearFunOnAction" onMouseEntered="#btnClearFunEntered" onMouseExited="#btnClearFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Limpar" textFill="WHITE">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
@@ -293,7 +287,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="delFunbtn" layoutX="167.0" layoutY="329.0" mnemonicParsing="false" onAction="#buttonDeleteFunOnAction" onMouseEntered="#btnDelFunEntered" onMouseExited="#btnDelFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Eliminar" textFill="WHITE">
+                                          <Button fx:id="delFunbtn" layoutX="156.0" layoutY="354.0" mnemonicParsing="false" onAction="#buttonDeleteFunOnAction" onMouseEntered="#btnDelFunEntered" onMouseExited="#btnDelFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Eliminar" textFill="WHITE">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="13.0" />
                                              </font>
@@ -301,36 +295,41 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Label layoutX="101.0" layoutY="42.0" prefHeight="17.0" prefWidth="18.0" text="ID">
+                                          <Label layoutX="96.0" layoutY="86.0" prefHeight="17.0" prefWidth="18.0" text="ID">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="funcionariosId" layoutX="128.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
+                                          <TextField fx:id="funcionariosId" layoutX="128.0" layoutY="81.0" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #fff; -fx-background-radius: 8; -fx-border-color: #444857; -fx-border-radius: 2; -fx-border-width: 0.0.0.8;">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
                                           </TextField>
+                                          <Label alignment="CENTER" layoutX="-1.0" layoutY="21.0" prefHeight="17.0" prefWidth="302.0" text="Menu Funcionário">
+                                             <font>
+                                                <Font name="Comic Sans MS Bold" size="24.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane layoutX="327.0" layoutY="13.0" prefHeight="542.0" prefWidth="587.0" style="-fx-background-color: fff; -fx-background-radius: 10;">
+                                    <AnchorPane layoutX="321.0" layoutY="13.0" prefHeight="542.0" prefWidth="593.0" style="-fx-background-color: fff; -fx-background-radius: 10;">
                                        <effect>
                                           <DropShadow />
                                        </effect>
                                        <children>
-                                          <TableView fx:id="tableViewFuncionarios" layoutX="5.0" layoutY="54.0" onMouseClicked="#verFuncionario" prefHeight="476.0" prefWidth="580.0" style="-fx-background-color: #263F73; -fx-background-radius: 10;">
+                                          <TableView fx:id="tableViewFuncionarios" layoutX="10.0" layoutY="52.0" onMouseClicked="#verFuncionario" prefHeight="484.0" prefWidth="574.0" style="-fx-background-color: #0367fc; -fx-background-radius: 10;">
                                             <columns>
-                                              <TableColumn fx:id="FuncionarioIdColumm" prefWidth="83.0" style="-fx-background-radius: 10;" text="ID " />
-                                                <TableColumn fx:id="FuncionarioFirstNameColumm" prefWidth="147.0" style="-fx-background-radius: 10;" text="primeiro nome" />
-                                                <TableColumn fx:id="FuncionarioSecondNameColumm" prefWidth="132.0" style="-fx-background-radius: 10;" text="Segundo nome" />
-                                                <TableColumn fx:id="FuncionarioAgeColumm" prefWidth="97.0" style="-fx-background-radius: 10;" text="idade" />
-                                                <TableColumn fx:id="FuncionarioCargoColumm" prefWidth="122.0" style="-fx-background-radius: 10;" text="Cargo" />
+                                              <TableColumn fx:id="FuncionarioIdColumm" prefWidth="83.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="ID " />
+                                                <TableColumn fx:id="FuncionarioFirstNameColumm" prefWidth="147.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="primeiro nome" />
+                                                <TableColumn fx:id="FuncionarioSecondNameColumm" prefWidth="132.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="Segundo nome" />
+                                                <TableColumn fx:id="FuncionarioAgeColumm" prefWidth="97.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="idade" />
+                                                <TableColumn fx:id="FuncionarioCargoColumm" prefWidth="122.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="Cargo" />
                                             </columns>
                                              <effect>
                                                 <DropShadow />
                                              </effect>
                                           </TableView>
-                                          <TextField fx:id="FuncionarioSearch" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="260.0" promptText="Procurar" />
+                                          <TextField fx:id="FuncionarioSearch" layoutX="14.0" layoutY="14.0" onKeyPressed="#procurarFuncionario" prefHeight="25.0" prefWidth="260.0" promptText="Procurar" />
                                           <ImageView fitHeight="19.0" fitWidth="66.0" layoutX="239.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@imagem/png-transparent-magnifying-glass-magnification-magnifying-glass-glass-logo-light-removebg-preview.png" />
@@ -340,7 +339,7 @@
                                     </AnchorPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="ClientForm" layoutX="13.0" layoutY="6.0" prefHeight="566.0" prefWidth="898.0" visible="false" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                              <AnchorPane fx:id="ClientForm" layoutX="13.0" layoutY="6.0" prefHeight="566.0" prefWidth="898.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                                  <children>
                                     <AnchorPane layoutX="-15.0" prefHeight="555.0" prefWidth="951.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="-44.0" AnchorPane.topAnchor="0.0">
                                        <children>
@@ -349,16 +348,16 @@
                                                 <DropShadow />
                                              </effect>
                                              <children>
-                                                <TableView fx:id="ClientTableView" layoutX="7.0" layoutY="42.0" onMouseClicked="#verClientes" prefHeight="498.0" prefWidth="597.0" style="-fx-border-color: #263F73; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #263F73;">
+                                                <TableView fx:id="ClientTableView" layoutX="7.0" layoutY="42.0" onMouseClicked="#verClientes" prefHeight="498.0" prefWidth="597.0" style="-fx-border-color: #0367fc; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-background-color: #0367fc;">
                                                   <columns>
-                                                    <TableColumn fx:id="clientNumberCollumn" prefWidth="92.0" style="-fx-background-color: #fff;" text="Cliente nº" />
-                                                    <TableColumn fx:id="clientNameCollumn" prefWidth="136.0" style="-fx-background-color: #fff;" text="nome" />
-                                                      <TableColumn fx:id="clientNumberPhoneCollumn" prefWidth="127.0" style="-fx-background-color: #fff;" text="telefone" />
-                                                      <TableColumn fx:id="clientCheckInCollumn" prefWidth="106.0" style="-fx-background-color: #fff;" text="Check-In" />
-                                                      <TableColumn fx:id="clientCheckOutCollumn" prefWidth="135.0" style="-fx-background-color: #fff;" text="Check-Out" />
+                                                    <TableColumn fx:id="clientNumberCollumn" prefWidth="92.0" style="-fx-background-radius: 8; -fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8;" text="Cliente nº" />
+                                                    <TableColumn fx:id="clientNameCollumn" prefWidth="136.0" style="-fx-background-color: #0367fc; -fx-background-radius: 8; -fx-border-color: #0367fc; -fx-border-width: 8;" text="nome" />
+                                                      <TableColumn fx:id="clientNumberPhoneCollumn" prefWidth="127.0" style="-fx-background-color: #0367fc; -fx-background-radius: 8; -fx-border-color: #0367fc; -fx-border-width: 8;" text="telefone" />
+                                                      <TableColumn fx:id="clientCheckInCollumn" prefWidth="106.0" style="-fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8; -fx-background-radius: 8;" text="Check-In" />
+                                                      <TableColumn fx:id="clientCheckOutCollumn" prefWidth="135.0" style="-fx-background-color: #0367fc; -fx-border-color: #0367fc; -fx-border-width: 8; -fx-background-radius: 8;" text="Check-Out" />
                                                   </columns>
                                                 </TableView>
-                                                <TextField fx:id="searchClient" layoutX="17.0" layoutY="13.0" prefHeight="25.0" prefWidth="319.0" promptText="Procurar" />
+                                                <TextField fx:id="searchClient" layoutX="17.0" layoutY="13.0" onKeyPressed="#procurarClientes" prefHeight="25.0" prefWidth="319.0" promptText="Procurar" />
                                                 <ImageView fitHeight="28.0" fitWidth="34.0" layoutX="298.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@imagem/png-transparent-magnifying-glass-magnification-magnifying-glass-glass-logo-light-removebg-preview.png" />
@@ -411,7 +410,7 @@
                                                       <Font name="Comic Sans MS Bold" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Button fx:id="addClientBtn" layoutX="30.0" layoutY="300.0" mnemonicParsing="false" onAction="#buttonaddClientOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Adicionar" textFill="WHITE">
+                                                <Button fx:id="addClientBtn" layoutX="30.0" layoutY="300.0" mnemonicParsing="false" onAction="#buttonaddClientOnAction" onMouseEntered="#btnAddClientEntered" onMouseExited="#btnAddClientExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Adicionar" textFill="WHITE">
                                                    <font>
                                                       <Font name="Comic Sans MS Bold" size="13.0" />
                                                    </font>
@@ -419,7 +418,7 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button fx:id="editClientBtn" layoutX="148.0" layoutY="300.0" mnemonicParsing="false" onAction="#buttonEditClientOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Editar" textFill="WHITE">
+                                                <Button fx:id="editClientBtn" layoutX="148.0" layoutY="300.0" mnemonicParsing="false" onAction="#buttonEditClientOnAction" onMouseEntered="#btnEditClientEntered" onMouseExited="#btnEditClientExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Editar" textFill="WHITE">
                                                    <font>
                                                       <Font name="Comic Sans MS Bold" size="13.0" />
                                                    </font>
@@ -427,7 +426,7 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button fx:id="clearClientBtn" layoutX="30.0" layoutY="367.0" mnemonicParsing="false" onAction="#buttonClearClientOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Limpar" textFill="WHITE">
+                                                <Button fx:id="clearClientBtn" layoutX="30.0" layoutY="367.0" mnemonicParsing="false" onAction="#buttonClearClientOnAction" onMouseEntered="#btnClearClientEntered" onMouseExited="#btnClearClientExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Limpar" textFill="WHITE">
                                                    <font>
                                                       <Font name="Comic Sans MS Bold" size="13.0" />
                                                    </font>
@@ -435,7 +434,7 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button fx:id="deleteClientBtn" layoutX="148.0" layoutY="367.0" mnemonicParsing="false" onAction="#buttonDeleteClientOnAction" onMouseEntered="#btnAddFunEntered" onMouseExited="#btnAddFunExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Eliminar" textFill="WHITE">
+                                                <Button fx:id="deleteClientBtn" layoutX="148.0" layoutY="367.0" mnemonicParsing="false" onAction="#buttonDeleteClientOnAction" onMouseEntered="#btnDeleteClientEntered" onMouseExited="#btnDeleteClientExited" prefHeight="42.0" prefWidth="94.0" style="-fx-border-width: 0.0.0.8; -fx-border-radius: 2; -fx-background-radius: 8; -fx-background-color: #263F73; -fx-font-family: tahoma;" text="Eliminar" textFill="WHITE">
                                                    <font>
                                                       <Font name="Comic Sans MS Bold" size="13.0" />
                                                    </font>
