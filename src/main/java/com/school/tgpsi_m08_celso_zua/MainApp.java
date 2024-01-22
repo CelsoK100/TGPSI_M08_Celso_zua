@@ -14,14 +14,23 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        // Carregar o FXML do login
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("login.fxml"));
+
+        // Criar a cena com o conteúdo do FXML
         Scene scene = new Scene(fxmlLoader.load());
+
+        // Configurar a Stage
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        //primaryStage.setTitle("Login");
+
+        // Carregar listas Quartos Disponiveis, Funcionarios e Clientes
         Settings.loadRoomList();
         Settings.loadFuncionariosList();
         Settings.loadClientList();
+
+        // Mostrar a stage
         primaryStage.show();
     }
 }

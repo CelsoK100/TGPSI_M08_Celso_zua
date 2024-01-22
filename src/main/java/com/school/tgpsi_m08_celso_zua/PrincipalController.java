@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class PrincipalController implements Initializable {
+    //Atributos
     @FXML
     private Button AcercaDeBtn;
 
@@ -103,7 +104,6 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private TableColumn<Cliente, String> clientFirstName;
-
 
 
     @FXML
@@ -211,16 +211,17 @@ public class PrincipalController implements Initializable {
 
 
 //----------------------------------------------------------------------------------------------------------------------
-// METODOS PARA A CLASSE QUARTOS DISPONIVEIS
+    //Array que armazena os diferentes tipos de quartos disponíveis
     public String type[] = {"Um Quarto", "Dois Quartos", "Três Quartos", "Quatro Quartos"};
-
+    // Preenche o ComboBox 'roomType' com tipos de quartos
     public void QuartosDisponiveisRoomType() {
         List<String> listData = new ArrayList<>();
 
+        //Adiciona os tipos de quartos à lista
         for (String data : type) {
             listData.add(data);
         }
-
+        // Converte a lista num ObservableList e associa ao ComboBox 'roomType'
         ObservableList lista = FXCollections.observableArrayList(listData);
         roomType.setItems(lista);
     }
@@ -254,12 +255,14 @@ public class PrincipalController implements Initializable {
 //----------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------
-
+    // Configura as colunas da tabela
     public void associarQuartos() {
         roomNumberCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, Integer>("numQuarto"));
         roomTypeCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, String>("tipoDeQuarto"));
         roomStatusCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, String>("status"));
         roomPriceCollum.setCellValueFactory(new PropertyValueFactory<QuartosDisponiveis, Double>("preco"));
+
+        // Associa a lista de quartos à tabela
         tableViewQuartos.setItems(Settings.getListaQuartos());
     }
 
@@ -284,7 +287,8 @@ public class PrincipalController implements Initializable {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-    //----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
+    // Mostra os detalhes do quarto,funcionario e clientes quando é selecionado
     public void verQuartos() {
         QuartosDisponiveis RoomDataVer = (QuartosDisponiveis) tableViewQuartos.getSelectionModel().getSelectedItem();
         roomNumber.setText(String.valueOf(RoomDataVer.getNumQuarto()));
@@ -312,49 +316,65 @@ public class PrincipalController implements Initializable {
     }
 //----------------------------------------------------------------------------------------------------------------------
 
+    // Método executado ao clicar no botão de adicionar quartos,funcionarios e clientes
     public void buttonAddOnAction(ActionEvent actionEvent) {
+        // Verifica se algum dos campos obrigatórios está vazio
         if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
+            // Mostra uma mensagem de erro se algum campo estiver vazio
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
             alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
             alert.setContentText("Clique no botao para tentar novamente!");
             alert.showAndWait();
         } else {
+            // Obtém o número do quarto que vai ser inserido
             int quartoNovo = Integer.parseInt(roomNumber.getText());
+
+            // Verifica se um quarto com o mesmo número já existe
             if (Settings.listaQuartos.stream().anyMatch(q -> q.getNumQuarto() == quartoNovo)) {
+                // mostra  uma mensagem de erro se um quarto com o mesmo número já existe
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERRO");
                 alert.setHeaderText("Esse Botao ja foi inserido, por favor coloque outro");
                 alert.setContentText("Clique no botao para continuar");
                 alert.showAndWait();
             } else {
+                // Obtém os dados do quarto a ser adicionado
                 int newRoom = Integer.parseInt(roomNumber.getText());
                 String newType = String.valueOf(roomType.getSelectionModel().getSelectedItem());
                 String newStatus = String.valueOf(roomStatus.getSelectionModel().getSelectedItem());
                 double newPrice = Double.parseDouble(roomPrice.getText());
 
+                // Confirmação do utilizador antes de adicionar o quarto
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("CONFIRMAR");
                 alert.setHeaderText("Deseja mesmo acionar este pedido?");
-
                 alert.setHeaderText(("Quartos: " + newRoom + "\nTipo de quarto: " + newType + "\nStatus: " + newStatus + "\nPreço: " + newPrice));
                 alert.setContentText("Deseja mesmo adicionar?");
+
+                // Adiciona botões de "Sim" e "Não" à janela de confirmação
                 ButtonType buttonSim = new ButtonType("Sim");
                 ButtonType buttonNao = new ButtonType("Não");
                 alert.getButtonTypes().setAll(buttonSim, buttonNao);
+
+                // Obtém a escolha do utilizador
                 Optional<ButtonType> choose = alert.showAndWait();
+                // Executa a ação correspondente à escolha do utilizador
                 if (choose.get() == buttonSim) {
                     Settings.listaQuartos.add(new QuartosDisponiveis(newRoom, newType, newStatus, newPrice));
                     Alert alertAddQuartos = new Alert(Alert.AlertType.INFORMATION);
+
+                    // Mostra uma mensagem de sucesso
                     alertAddQuartos.setTitle("INFORMARÇAO!!!");
                     alertAddQuartos.setHeaderText("VERIFICANDO DADOS....");
                     alertAddQuartos.setHeaderText("PRODUTO INSERIDO COM SUCESSO!!");
                     alertAddQuartos.showAndWait();
                 } else {
+                    // Mostra  uma mensagem de que a operaçao foi cancelada
                     Alert alertCancelAddQuartos = new Alert(Alert.AlertType.INFORMATION);
                     alertCancelAddQuartos.setTitle("INFORMAÇAO!!!");
-                    alertCancelAddQuartos.setContentText("DEIXA DE SER BURRO MADJE-_-");
-                    alertCancelAddQuartos.setContentText("CANCELADO COM SUCESSO!!!");
+                    alertCancelAddQuartos.setHeaderText("CANCELADO COM SUCESSO!!!");
+                    alertCancelAddQuartos.setContentText("Clica no botao para continuar ->");
                     alertCancelAddQuartos.showAndWait();
                 }
             }
@@ -403,8 +423,8 @@ public class PrincipalController implements Initializable {
                 } else {
                     Alert alertCancelAddFuncionarios = new Alert(Alert.AlertType.INFORMATION);
                     alertCancelAddFuncionarios.setTitle("INFORMAÇAO!!!");
-                    alertCancelAddFuncionarios.setContentText("DEIXA DE SER BURRO MADJE-_-");
-                    alertCancelAddFuncionarios.setContentText("CANCELADO COM SUCESSO!!!");
+                    alertCancelAddFuncionarios.setHeaderText("CANCELADO COM SUCESSO!!!");
+                    alertCancelAddFuncionarios.setContentText("Clica no botao para continuar ->");
                     alertCancelAddFuncionarios.showAndWait();
                 }
             }
@@ -462,17 +482,18 @@ public class PrincipalController implements Initializable {
         }
     }
 
-
 //----------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------
+    // Método executado ao clicar no botão 'Sair'
     public void ButtonSairOnAction(ActionEvent actionEvent) {
+        // Obtém a referência à janela atual e a fecha
         Stage stage = (Stage) btnSair.getScene().getWindow();
         stage.close();
     }
 
 //----------------------------------------------------------------------------------------------------------------------
-
+    // Método executado ao clicar no botão 'Limpar Quartos,Funcionarios Clientes'
     public void buttonClearClientOnAction(ActionEvent actionEvent) {
         Settings.listaClientes.clear();
     }
@@ -490,28 +511,36 @@ public class PrincipalController implements Initializable {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-
+    // Método executado ao clicar no botão 'Editar' dos Qquartos,Funcionarios e Clientes
     public void buttonEditOnAction(ActionEvent actionEvent) {
+
+        // Verifica se algum dos campos obrigatórios está vazio
         if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
+
+            // Mostra uma mensagem de erro se algum campo estiver vazio
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
             alert.setHeaderText("Por favor,coloque todos os dados nos respetivos campos");
             alert.setContentText("Clique no botao para tentar novamente!");
             alert.showAndWait();
         } else {
-            //Settings.EditarQuarto = null;
+            // Obtém o número do quarto a ser editado
             int newRoom = Integer.parseInt(roomNumber.getText());
+
+            // Procura o quarto na lista para edição
             for (QuartosDisponiveis q : Settings.getListaQuartos()) {
                 if (q.getNumQuarto() == newRoom) {
                     Settings.EditarQuarto = q;
                     break;
                 }
             }
+            // Verifica se o quarto foi encontrado para edição
             if (Settings.EditarQuarto != null){
                 Settings.EditarQuarto.setTipoDeQuarto((String) roomType.getSelectionModel().getSelectedItem());
                 Settings.EditarQuarto.setStatus((String) roomStatus.getSelectionModel().getSelectedItem());
                 Settings.EditarQuarto.setPreco(Double.parseDouble(roomPrice.getText()));
 
+                // Confirmação do utilizador antes de realizar a edição
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Editar Quarto");
                 alert.setHeaderText("deseja realmente editar?");
@@ -519,11 +548,18 @@ public class PrincipalController implements Initializable {
                 ButtonType ButtonSim = new ButtonType("Sim");
                 ButtonType ButtonNao = new ButtonType("Não");
                 alert.getButtonTypes().setAll(ButtonSim,ButtonNao);
+
+                // Janela de informação sobre o resultado da edição
                 Alert alertEditRoom = new Alert(Alert.AlertType.INFORMATION);
                 alertEditRoom.setTitle("CONFIRMAÇÃO!!!");
                 alertEditRoom.setHeaderText(null);
+
+                // Obtém a escolha do utilizador
                 Optional<ButtonType> choose = alert.showAndWait();
+
+                // Executa a ação correspondente à escolha do utilizador
                 if(choose.get() == ButtonSim){
+                    // Atualiza o quarto na lista de quartos
                     for(QuartosDisponiveis quarto: Settings.getListaQuartos()) {
                         if (quarto.getNumQuarto() == Settings.getEditarQuarto().getNumQuarto()) {
                             int index = Settings.getListaQuartos().indexOf(quarto);
@@ -531,22 +567,31 @@ public class PrincipalController implements Initializable {
                             break;
                         }
                     }
+                    // Atualiza a tabela de quartos
                     Settings.setEditarQuarto(Settings.EditarQuarto);
                     tableViewQuartos.refresh();
+
+                    // Mostra uma mensagem de sucesso
                     alertEditRoom.setHeaderText("Ediçao realizada com sucesso");
                     alertEditRoom.setContentText("| Clique no botão para continuar ->");
                     alertEditRoom.showAndWait();
+
+                    // Limpa a referência ao quarto em edição
                     Settings.setEditarQuarto(null);
                 } else{
+
+                    // Mostra  uma mensagem de que a operaçao foi cancelada
                     Alert alertEditCancel = new Alert(Alert.AlertType.INFORMATION);
                     alertEditCancel.setTitle("INFORMAÇÃO!!!");
                     alertEditCancel.setHeaderText("Operação cancelada com sucesso");
                     alertEditCancel.showAndWait();
                 }
             }else {
+
+                // Mostra uma mensagem de erro se o número do quarto não foi encontrado
                 Alert alertIDNotFound = new Alert(Alert.AlertType.ERROR);
                 alertIDNotFound.setContentText("ERRO");
-                alertIDNotFound.setHeaderText("Numero do quarto nao encontra    do");
+                alertIDNotFound.setHeaderText("Numero do quarto nao encontrado");
                 alertIDNotFound.setContentText("Clique no botao para continuar");
                 alertIDNotFound.showAndWait();
             }
@@ -611,7 +656,7 @@ public class PrincipalController implements Initializable {
             }else {
                 Alert alertIDFunNotFound = new Alert(Alert.AlertType.ERROR);
                 alertIDFunNotFound.setContentText("ERRO");
-                alertIDFunNotFound.setHeaderText("ID nao encontrado");
+                alertIDFunNotFound.setHeaderText("ID do funcionario  nao encontrado");
                 alertIDFunNotFound.setContentText("Clique no botao para continuar");
                 alertIDFunNotFound.showAndWait();
             }
@@ -674,7 +719,7 @@ public class PrincipalController implements Initializable {
             }else {
                 Alert alertIDNotFound = new Alert(Alert.AlertType.ERROR);
                 alertIDNotFound.setContentText("ERRO");
-                alertIDNotFound.setHeaderText("Numero do quarto nao encontra    do");
+                alertIDNotFound.setHeaderText("Cliente nao encontrado");
                 alertIDNotFound.setContentText("Clique no botao para continuar");
                 alertIDNotFound.showAndWait();
             }
@@ -684,17 +729,20 @@ public class PrincipalController implements Initializable {
     }
 
 
-
 //----------------------------------------------------------------------------------------------------------------------
-
+// Método executado ao clicar no botão 'Eliminar' dos Qquartos,Funcionarios e Clientes
     public void btnDeleteOnAction(ActionEvent actionEvent) {
+        // Verifica se algum dos campos obrigatórios está vazio
         if (roomNumber.getText().isEmpty() || roomType.getSelectionModel().getSelectedItem() == null || roomStatus.getSelectionModel().getSelectedItem() == null || roomPrice.getText().isEmpty()) {
+
+            // Mostra uma mensagem de erro se algum campo estiver vazio
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRO");
             alert.setHeaderText("Nao selecionou nenhum item,por favor selecione um item!!!");
             alert.setContentText("Clique no botão para continuar");
             alert.showAndWait();
         } else {
+            // Confirmação do utilizador antes de eliminar o quarto
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("ELIMINAR");
             alert.setHeaderText("Quartos: " + roomNumber.getText() + "\nTipo de quarto: " + roomType.getSelectionModel().getSelectedItem() + "\nStatus: " + roomStatus.getSelectionModel().getSelectedItem() + "\nPreço: " + roomPrice.getText());
@@ -702,12 +750,21 @@ public class PrincipalController implements Initializable {
             ButtonType ButtonSim = new ButtonType("Sim");
             ButtonType ButtonNao = new ButtonType("Não");
             alert.getButtonTypes().setAll(ButtonSim, ButtonNao);
+
+            // Obtém a escolha do utilizador
             Optional<ButtonType> choose = alert.showAndWait();
 
+            // Executa a ação correspondente à escolha do utilizador
             if (choose.get() == ButtonSim) {
+
+                // Obtém o número do quarto a ser eliminado
                 int newRoom = Integer.parseInt(roomNumber.getText());
+
+                // Procura o quarto na lista e remove-o
                 for (QuartosDisponiveis q : Settings.listaQuartos) {
                     if (q.getNumQuarto() == newRoom) {
+
+                        // Mostra uma mensagem de sucesso
                         Settings.getListaQuartos().remove(q);
                         Alert alertRmQuartos = new Alert(Alert.AlertType.INFORMATION);
                         alertRmQuartos.setTitle("INFORMACÇAO!!!");
@@ -718,6 +775,7 @@ public class PrincipalController implements Initializable {
                     }
                 }
             } else {
+                // Mostra uma mensagem de sucesso
                 Alert alertRmCancel = new Alert(Alert.AlertType.INFORMATION);
                 alertRmCancel.setTitle("INFORMAÇAO!!!");
                 alertRmCancel.setHeaderText("Pedido cancelado com sucesso!!!");
@@ -810,30 +868,43 @@ public class PrincipalController implements Initializable {
     }
 
 
-
 //----------------------------------------------------------------------------------------------------------------------
-
+// Método para procurar Quartos, Funcionarios, clientes com base nos dados fornecidos
     public void procurarClientes(KeyEvent keyEvent){
+
+        // Cria um objeto FilteredList para filtrar a lista
         FilteredList<Cliente> filter = new FilteredList<>(Settings.listaClientes, e -> true);
 
+        // Adiciona um listener ao texto da barra de pesquisa
         searchClientes.textProperty().addListener((Observable, oldValue, newValue) ->{
 
             filter.setPredicate(predicateClient ->{
+                // Verifica se o novo valor da pesquisa é nulo ou vazio
                 if(newValue == null && newValue.isEmpty()){
                     return true;
                 }
+                // Converte o valor da pesquisa para minúsculas
                 String ProcurarC = newValue.toLowerCase();
+
+                // Verifica se o ID do cliente contém o valor da pesquisa
                 if (String.valueOf(predicateClient.getIdClientes()).contains(ProcurarC)){
                     return true;
+                // Verifica se o nome do cliente contém o valor da pesquisa
                 }else if (predicateClient.getNome().toLowerCase().contains(ProcurarC)) {
                     return true;
+                // Verifica se o telefone do cliente contém o valor da pesquisa
                 } else if (predicateClient.getTelefone().toLowerCase().contains(ProcurarC)) {
                     return true;
                 }
+                // Retorna falso se nenhum critério for atendido
                 return false;
             });
         });
+
+        // Cria uma lista ordenada com base no filtro
         SortedList<Cliente> sortList =  new SortedList<>(filter);
+
+        // Atualiza a tabela de clientes com a lista filtrada e ordenada
         sortList.comparatorProperty().bind(ClientTableView.comparatorProperty());
         ClientTableView.setItems(sortList);
     }
@@ -897,7 +968,8 @@ public class PrincipalController implements Initializable {
 //----------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------
-public void buttonQDForOnAction(ActionEvent actionEvent) {
+    // Método executado ao clicar no botão 'Quartos Disponíveis, Funcionario, Cliente  e Acerca De'
+    public void buttonQDForOnAction(ActionEvent actionEvent) {
     QuartosDisponiveisForm.setVisible(true);
     FuncionariosForm.setVisible(false);
     ClientForm.setVisible(false);
@@ -931,7 +1003,8 @@ public void buttonQDForOnAction(ActionEvent actionEvent) {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-
+    // Métodosquando que  quando o rato entra no botão 'Clientes' define o estilo do botão quando o rato passa por cima
+    // E em seguida quando o rato sai de cima do botao ele forta para a sua cor original
     public void btnRooomEntered(MouseEvent mouseEvent) {
         QuartosDisponiveisBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
@@ -956,11 +1029,9 @@ public void buttonQDForOnAction(ActionEvent actionEvent) {
         AcercaDeBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
 
-
     public void btnFuncionariosExited(MouseEvent mouseEvent) {
         funcionarioBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
-
 
     public void btnRoomExited(MouseEvent mouseEvent) {
         QuartosDisponiveisBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
@@ -993,6 +1064,7 @@ public void buttonQDForOnAction(ActionEvent actionEvent) {
     public void btnDeleteExited(MouseEvent mouseEvent) {
         deleteBn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
     }
+
     public void btnClearEntered(MouseEvent mouseEvent) {
         clearBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
@@ -1000,7 +1072,6 @@ public void buttonQDForOnAction(ActionEvent actionEvent) {
     public void btnAddFunEntered(MouseEvent mouseEvent) {
         addFunBtn.setStyle("-fx-background-color: #c0c2c1; -fx-text-fill: #000; -fx-border-radius: 4px; -fx-border-color: #c0c2c1;");
     }
-
 
     public void btnAddFunExited(MouseEvent mouseEvent) {
         addFunBtn.setStyle("-fx-background-color: #263F73; -fx-border-color: #fff; -fx-border-radius: 10px ; -fx-background-radius: 10px;-fx-text-fill: #fff;");
@@ -1063,8 +1134,11 @@ public void buttonQDForOnAction(ActionEvent actionEvent) {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Inicializa os tipos de quarto disponíveis e os estados dos quartos
         QuartosDisponiveisRoomType();
         QuartosDisponiveisRoomStatus();
+
+        // Associa os quartos, funcionários e clientes às respetivas tabelas
         associarQuartos();
         FuncionariosCargos();
         associarFuncionarios();

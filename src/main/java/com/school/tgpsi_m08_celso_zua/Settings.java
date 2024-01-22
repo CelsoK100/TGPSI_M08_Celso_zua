@@ -4,9 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Settings {
+    // Listas  para quartos, funcionários e clientes
     public static ObservableList<QuartosDisponiveis> listaQuartos = FXCollections.observableArrayList();
     public static ObservableList<Funcionario> listaFuncionarios = FXCollections.observableArrayList();
     public static ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
+
+//----------------------------------------------------------------------------------------------------------------------
+
     public static ObservableList<Funcionario>getListaFuncionarios(){
         return listaFuncionarios;
     }
@@ -23,6 +27,9 @@ public class Settings {
     public static Cliente EditarCliente;
 
 //----------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------------------
+    // Métodos para obter as listas
     public static QuartosDisponiveis getEditarQuarto(){
         return EditarQuarto;
     }
@@ -33,21 +40,30 @@ public class Settings {
         return EditarCliente;
     }
 //----------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------------------
+
+    // Objetos para editar quartos, funcionários e clientes
     public static void setEditarQuarto(QuartosDisponiveis EditarQuarto){
         Settings.EditarQuarto = EditarQuarto;
     }
-    public static void setListaQuartosDisponiveis(ObservableList<QuartosDisponiveis> listaQuartos) {
-        Settings.listaQuartos = listaQuartos;
-    }
-    public static void setEditarCliente(Cliente EditarCliente){
-        Settings.EditarCliente = EditarCliente;
-    }
 
-//---------------------------------------------------------------------------------------------------------------------
     public static void setEditarFuncionario(Funcionario EditarFuncionario){
         Settings.EditarFuncionario = EditarFuncionario;
     }
 
+
+    public static void setEditarCliente(Cliente EditarCliente){
+        Settings.EditarCliente = EditarCliente;
+    }
+//----------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------------------
+    // Métodos para definir os objetos de edição
+
+    public static void setListaQuartosDisponiveis(ObservableList<QuartosDisponiveis> listaQuartos) {
+        Settings.listaQuartos = listaQuartos;
+    }
     public static void setListaFuncionarios(ObservableList<Funcionario> listaFuncionarios){
         Settings.listaFuncionarios = listaFuncionarios;
     }
@@ -55,6 +71,9 @@ public class Settings {
         Settings.listaClientes = listaClientes;
     }
 //----------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------------------------------------
+    // Métodos para carregar listas Quartos Dispniveis, Funcionarios, Clientes
     public static void loadRoomList(){
         listaQuartos.add(new QuartosDisponiveis(1,"Um Quartos","Disponivel",120));
         listaQuartos.add(new QuartosDisponiveis(2,"Dois Quartos","Disponivel",250));
@@ -69,8 +88,6 @@ public class Settings {
         listaFuncionarios.add(new Funcionario(3,"João","Silva",28,"Superior"));
         listaFuncionarios.add(new Funcionario(4," Pedro","Oliveira",42,"Supervisor da Equipa"));
         listaFuncionarios.add(new Funcionario(5,"Carolina","Pereira",25,"Auxiliar Administrativo"));
-
-
     }
     public static void loadClientList(){
         listaClientes.add(new Cliente(1,"Celso Zua","933867200","20-10-2024","25-10-2024"));
@@ -80,3 +97,4 @@ public class Settings {
         listaClientes.add(new Cliente(2,"Pedro Pereira"," 910234567","10-10-2024","15-10-2024"));
     }
 }
+//----------------------------------------------------------------------------------------------------------------------
